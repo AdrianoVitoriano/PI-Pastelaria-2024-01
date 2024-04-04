@@ -1,4 +1,6 @@
-<h1 align ="center" > PI-Pastelaria-2024-01 <br> ![Desenho de um pastel]('/images/Pastel.png') </h1>
+<h1 align ="center" > PI-Pastelaria-2024-01</h1>
+
+<h1 align ="center"> <img src='https://github.com/AdrianoVitoriano/PI-Pastelaria-2024-01/assets/137364456/990c35bb-d341-4943-a6d3-9484c86adfa9'> </h1>
 
 ## Projeto integrador do 2 semestre do curso de ADS. Sistema para gerir comandas de uma pastelaria.
 ***
@@ -31,6 +33,7 @@
 # ✅ Tecnologias utilizadas
 
 - `Javascript`
+
 - `Node.js`
 - `Sqlite`
 - `VScode`
