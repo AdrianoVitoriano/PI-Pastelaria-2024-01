@@ -1,9 +1,13 @@
-<h1 align ="center" > PI-Pastelaria-2024-01</h1>
+<h1 align ="center" > PI-Pastelaria-2024-01 <br> <img src='https://github.com/AdrianoVitoriano/PI-Pastelaria-2024-01/assets/137364456/990c35bb-d341-4943-a6d3-9484c86adfa9'> </h1>
 
-<h1 align ="center"> <img src='https://github.com/AdrianoVitoriano/PI-Pastelaria-2024-01/assets/137364456/990c35bb-d341-4943-a6d3-9484c86adfa9'> </h1>
+<h2 align ="center">  🚧O projeto tem como objetivo gerir comandas de uma pastelaria.🚧 </h2>
 
-## Projeto integrador do 2 semestre do curso de ADS. Sistema para gerir comandas de uma pastelaria.
+
+>[!IMPORTANT]
+> Esse é um projeto que está sendo desenvolvido para o Projeto integrador do 2° semestre de Análise e Desenvolvimento de Sistema, na Fatec Dr. Archimedes Lammoglia .
+
 ***
+
 
 # Índice
 
@@ -24,9 +28,20 @@
 # Funcionalidades do projeto
 
 - `Funcionalidade 1`: descrição da funcionalidade 1
+```
+const soma = (...numbers) => numbers.reduce((accumulator, number) => accumulator + number, 0)
+```
+>[!NOTE]
+>Esse funcionalidade soma varios números.
 - `Funcionalidade 2`: descrição da funcionalidade 2
+>[!WARNING]
+>Tenha cuidado ao inserir string nessa funcionalidade.
 - `Funcionalidade 3`: descrição da funcionalidade 3
+>[!TIP]
+>Tivemos essa ideia apartir de um pensamento.
 - `Funcionalidade 4`: descrição da funcionalidade 4
+>[!CAUTION]
+>Não utilize a funcionalidade 1 dentro da funcionalidade 4.
 
 ***
 
