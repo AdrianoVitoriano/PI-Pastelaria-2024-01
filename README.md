@@ -28,7 +28,7 @@
 # Funcionalidades do projeto
 
 - `Funcionalidade 1`: descrição da funcionalidade 1
-```
+```Javascript
 const soma = (...numbers) => numbers.reduce((accumulator, number) => accumulator + number, 0)
 ```
 >[!NOTE]
