@@ -80,4 +80,3 @@ const soma = (...numbers) => numbers.reduce((accumulator, number) => accumulator
 </div> 
 
 ***
->>>>>>> 44bd1cb9b393f246fe464074490827393ec60ed4
