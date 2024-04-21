@@ -15,7 +15,7 @@ CREATE TABLE produto_backup (
     nome TEXT NOT NULL,
     preco REAL NOT NULL,
     tipo INTEGER NOT NULL,
-    Foreign Key (id) REFERENCES produto(id)
+    Foreign Key (id_produto) REFERENCES produto(id)
 );
 
 CREATE TABLE funcionario (

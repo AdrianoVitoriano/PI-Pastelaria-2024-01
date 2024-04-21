@@ -1,5 +1,11 @@
+/** @format */
+
 const { DataTypes, Sequelize } = require("sequelize");
-const sequelize = new Sequelize("sqlite::memory:"); // Configuração da conexão com o banco de dados
+const sequelize = new Sequelize({
+  dialect: "sqlite", // Tipo de banco de dados (neste caso, SQLite)
+  storage:
+    "C:UserskairoOneDriveÁrea de TrabalhoPI PastelariaSIs.Info_BancoBancoSQLITE", // Caminho para o arquivo do banco de dados
+}); // Configuração da conexão com o banco de dados
 // a função sequelize.define() permite criar um novo modelo de dados (tabela)
 //sequilize.define() primeiro define o nome da tabela, depois um objeto referenciando as colunas
 const Produto = sequelize.define("produto", {
@@ -65,7 +71,7 @@ async function criarProduto(nome, preco, tipo) {
     await sequelize.sync(); // Sincronizar o modelo com o banco de dados
     console.log("Tabela Produto sincronizada");
 
-    await criarProduto("Pastel de Queijo", 5.99, 1);
+    await criarProduto("Pastel de Carne", 5, 7);
   } catch (error) {
     console.error("Erro:", error);
   }
