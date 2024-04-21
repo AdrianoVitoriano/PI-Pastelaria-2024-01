@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# PI-Pastelaria-2024-01
-=======
 <h1 align ="center" > PI-Pastelaria-2024-01 <br> <img src='https://github.com/AdrianoVitoriano/PI-Pastelaria-2024-01/assets/137364456/990c35bb-d341-4943-a6d3-9484c86adfa9'> </h1>
 
 <h2 align ="center">  🚧 O projeto tem como objetivo gerir comandas de uma pastelaria 🚧 </h2>
@@ -83,4 +80,3 @@ const soma = (...numbers) => numbers.reduce((accumulator, number) => accumulator
 </div> 
 
 ***
->>>>>>> 44bd1cb9b393f246fe464074490827393ec60ed4
