@@ -3,13 +3,19 @@ CREATE TABLE produto (
     nome TEXT NOT NULL,
     preco REAL NOT NULL,
     tipo INTEGER NOT NULL
+    --os tipos serão listados da seguinteforma--
+    -- 1. Bebida Alcoolica--
+    -- 2. Bebida Sem Alcool--
+    -- 3.Doce--
+    -- 4.Salgado Assado--
+    -- 5.Salgado Frito--
 );
 CREATE TABLE produto_backup (
     id_produto INTEGER NOT NULL,
     nome TEXT NOT NULL,
     preco REAL NOT NULL,
     tipo INTEGER NOT NULL,
-    Foreign Key (id) REFERENCES produtos(id)
+    Foreign Key (id) REFERENCES produto(id)
 );
 
 CREATE TABLE funcionario (
@@ -99,4 +105,5 @@ BEGIN
     INSERT INTO produto_backup (id_produto, nome, preco, tipo)
     VALUES (OLD.id, OLD.nome, OLD.preco, OLD.tipo);
 END;
+
 
