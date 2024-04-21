@@ -12,13 +12,12 @@
   - [alterarProdutos](#alterarprodutos)
   - [alterarTipos](#alterartipos)
   - [alterarUsuarios](#alterarusuarios)
-   - [alterarMesas](#alterarmesas)
+  - [alterarMesas](#alterarmesas)
   - [alterarPedidos](#alterarpedidos)
 - [Processamento](#processamento)
-  - [](#)
 - [Saída](#saída)
   - [visualizarComanda](#visualizarcomanda)
-  - [visualizarPedidos](#visualizarpedidos)
+  - [visualizarPedido](#visualizarpedido)
   - [relatorioVendas](#relatoriovendas)
 
 ## Cadastros
@@ -183,13 +182,13 @@ function visualizarPedido(idPedido = new Number){
 
 ```
 
-## relatorioVenda
+## relatorioVendas
 
 Função para gerar um relatorio de vendas.
 
 ```Javascript
 
-function relatorioVenda(mesa = 0, usuario = 0, dataInicial = new Date , dataFinal = new Date){
+function relatorioVendas(mesa = 0, usuario = 0, dataInicial = new Date , dataFinal = new Date){
 
 }
 
