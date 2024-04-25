@@ -2,7 +2,8 @@ import { EntitySchema } from "typeorm";
 import { insert, updateById, deleteById, getById, getAll } from "../crud.js";
 
 export const itens = new EntitySchema({
-  name: "Itens",
+  name: "itens",
+  tableName: "itens",
   columns: {
     id: {
       primary: true,

@@ -4,7 +4,7 @@ const msg404 = "Você precisa passar o ID! Burruuu";
 const msg400 = "ID não encontrado.";
 
 export async function getAll(req, table) {
-  return await dataBase.getRepository(table).find()
+  return await dataBase.getRepository(table).find();
 }
 
 export async function getById(req, table) {
@@ -14,25 +14,20 @@ export async function getById(req, table) {
       msg: msg404,
     };
   }
-  const insert = await dataBase
-    .createQueryBuilder()
-    .select(table.options.name)
-    .from(table, table.options.name)
-    .where(`${table.options.name}.id = ${req.id}`)
-    .getOne()
+
+  const res = await dataBase
+    .getRepository(table.options.name)
+    .findOne(`id: 1`)
     .catch((err) => {
       return err;
     });
-  return insert;
+    return res
 }
 
 export async function insert(req, table) {
   const insert = await dataBase
-    .createQueryBuilder()
-    .insert()
-    .into(table)
-    .values(req)
-    .execute()
+    .getRepository(table.options.name)
+    .save(req)
     .then(() => {
       return { statusCode: 200 };
     })
@@ -48,12 +43,9 @@ export async function updateById(req, table) {
       msg: msg404,
     };
   }
-  const insert = await dataBase
-    .createQueryBuilder()
-    .update(table)
-    .set(req)
-    .where(`id = ${req.id}`)
-    .execute()
+  const update = await dataBase
+    .getRepository(table.options.name)
+    .update(req.id, req)
     .then(() => {
       return { statusCode: 200 };
     })
@@ -61,21 +53,19 @@ export async function updateById(req, table) {
       return err;
     });
 }
+
 export async function deleteById(req, table) {
-  console.log(req)
-  console.log(table)
+  console.log(req);
+  console.log(table);
   if (req && !req.id) {
     return {
       statusCode: 400,
       msg: msg404,
     };
   }
-  const insert = await dataBase
-    .createQueryBuilder()
-    .delete()
-    .from(table)
-    .where(`id = ${req.id}`)
-    .execute()
+  const del = await dataBase
+    .getRepository(table.options.name)
+    .delete(req.id)
     .then(() => {
       return { statusCode: 200 };
     })
