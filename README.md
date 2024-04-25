@@ -35,13 +35,13 @@ const soma = (...numbers) => numbers.reduce((accumulator, number) => accumulator
 > Esse funcionalidade soma varios números.
 
 - `Funcionalidade 2`: descrição da funcionalidade 2
-  > [!WARNING]
+> [!WARNING]
   > Tenha cuidado ao inserir string nessa funcionalidade.
 - `Funcionalidade 3`: descrição da funcionalidade 3
-  > [!TIP]
+> [!TIP]
   > Tivemos essa ideia apartir de um pensamento.
 - `Funcionalidade 4`: descrição da funcionalidade 4
-  > [!CAUTION]
+> [!CAUTION]
   > Não utilize a funcionalidade 1 dentro da funcionalidade 4.
 
 ---
