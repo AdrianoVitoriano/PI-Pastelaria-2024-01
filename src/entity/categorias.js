@@ -3,6 +3,7 @@ import { insert, updateById, deleteById, getById, getAll } from "../crud.js";
 
 export const categorias = new EntitySchema({
   name: "categorias",
+  tableName: "categorias",
   columns: {
     id: {
       primary: true,
