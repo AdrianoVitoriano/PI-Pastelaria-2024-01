@@ -25,17 +25,17 @@ export const ItensPedidos = new EntitySchema({
       type: "int",
     },
   },
-  relations: {
-    Itens: {
-      type: "many-to-one",
-      target: "Itens",
-      inverseSide: "ItensPedidos",
-    },
-    Pedidos: {
-      type: "many-to-one",
-      target: "Pedidos",
-      inverseSide: "ItensPedidos",
-    },
-  },
+  // relations: {
+  //   Itens: {
+  //     type: "many-to-one",
+  //     target: "Itens",
+  //     inverseSide: "ItensPedidos",
+  //   },
+  //   Pedidos: {
+  //     type: "many-to-one",
+  //     target: "Pedidos",
+  //     inverseSide: "ItensPedidos",
+  //   },
+  // },
 
 });

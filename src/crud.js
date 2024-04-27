@@ -1,3 +1,4 @@
+import { Query } from "typeorm/driver/Query.js";
 import { dataBase } from "./ormconfig.js";
 
 const msg404 = "Você precisa passar o ID! Burruuu";
@@ -6,9 +7,8 @@ const msg400 = "ID não encontrado.";
 export async function getAll(req, table) {
   return await dataBase.getRepository(table).find();
 }
-
 export async function getById(req, table) {
-  const {id} = req.params;
+  const {id} = req;
   
   if (id === undefined) {
     return {
@@ -39,7 +39,7 @@ export async function insert(req, table) {
 }
 
 export async function updateById(req, table) {
-  const {id} = req.params;
+  const {id} = req;
   if (id === undefined) {
     return {
       statusCode: 400,
@@ -58,7 +58,7 @@ export async function updateById(req, table) {
 }
 
 export async function deleteById(req, table) {
-  const {id} = req.params;
+  const {id} = req;
   if (id === undefined) {
     return {
       statusCode: 400,

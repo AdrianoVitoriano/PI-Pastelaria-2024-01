@@ -19,11 +19,11 @@ export const Comandas = new EntitySchema({
       type: "int",
     },
   },
-  relations: {
-  // Mesas: {
-  //   type: "many-to-one",
-  //   target: "Comandas",
-  //   inverseSide: "comandas",
-  // }, 
-},
+//   relations: {
+//   Mesas: {
+//     type: "many-to-one",
+//     target: "Comandas",
+//     inverseSide: "comandas",
+//   }, 
+// },
 });

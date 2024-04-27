@@ -16,11 +16,11 @@ export const Categorias = new EntitySchema({
       type: "text",
     },
   },
-  relations: {
-    Itens: {
-      type: "one-to-many",
-      target: "Itens",
-      inverseSide: "Categorias",
-    },
-  },
+  // relations: {
+  //   Itens: {
+  //     type: "one-to-many",
+  //     target: "Itens",
+  //     inverseSide: "Categorias",
+  //   },
+  // },
 }); 
