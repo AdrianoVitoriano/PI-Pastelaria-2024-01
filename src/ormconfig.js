@@ -1,5 +1,4 @@
 import { DataSource } from "typeorm";
-import sqlite3 from "sqlite3";
 import { Mesas } from "./Model/mesas.model.js";
 import { Categorias } from "./Model/categorias.model.js";
 import { Itens } from "./Model/itens.model.js";
@@ -23,7 +22,6 @@ export const dataBase = new DataSource({
     ComandasPedidos,
     Comandas,
   ], // Variáveis das entidades(Tabelas) do banco.
-  driver: sqlite3.Database, // Driver do banco
   logging: true, // log das queries executadas
   synchronize: true, // cria as tabelas automaticamente
 });
