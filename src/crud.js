@@ -8,7 +8,9 @@ export async function getAll(req, table) {
 }
 
 export async function getById(req, table) {
-  if (req.body && !req.id) {
+  const {id} = req.params;
+  
+  if (id === undefined) {
     return {
       statusCode: 400,
       msg: msg404,
@@ -17,7 +19,7 @@ export async function getById(req, table) {
 
   const res = await dataBase
     .getRepository(table.options.name)
-    .findOne(`id: 1`)
+    .findOne(`id: ${id}`)
     .catch((err) => {
       return err;
     });
@@ -25,7 +27,7 @@ export async function getById(req, table) {
 }
 
 export async function insert(req, table) {
-  const insert = await dataBase
+  const res = await dataBase
     .getRepository(table.options.name)
     .save(req)
     .then(() => {
@@ -37,15 +39,16 @@ export async function insert(req, table) {
 }
 
 export async function updateById(req, table) {
-  if (req && !req.id) {
+  const {id} = req.params;
+  if (id === undefined) {
     return {
       statusCode: 400,
       msg: msg404,
     };
   }
-  const update = await dataBase
+  const res = await dataBase
     .getRepository(table.options.name)
-    .update(req.id, req)
+    .update(id, req)
     .then(() => {
       return { statusCode: 200 };
     })
@@ -55,17 +58,16 @@ export async function updateById(req, table) {
 }
 
 export async function deleteById(req, table) {
-  console.log(req);
-  console.log(table);
-  if (req && !req.id) {
+  const {id} = req.params;
+  if (id === undefined) {
     return {
       statusCode: 400,
       msg: msg404,
     };
   }
-  const del = await dataBase
+  const res = await dataBase
     .getRepository(table.options.name)
-    .delete(req.id)
+    .delete(id)
     .then(() => {
       return { statusCode: 200 };
     })
