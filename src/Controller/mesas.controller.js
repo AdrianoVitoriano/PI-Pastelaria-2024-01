@@ -3,7 +3,7 @@ import { insert, updateById, deleteById, getById, getAll } from "../crud.js";
 
 class MesasController {
   static async getAllMesas(req, res) {
-    res.json(await getAll(req.body, Mesas));
+    res.json(await getAll(Mesas));
   }
   static async getMesaById(req, res) {
     res.json(await getById(req.body, Mesas));

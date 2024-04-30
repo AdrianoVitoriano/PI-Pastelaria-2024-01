@@ -33,6 +33,6 @@ export const Itens = new EntitySchema({
 //       target: "ItensPedidos",
 //       inverseSide: "Itens"
 //   },
-// },
+// }, 
   
 });

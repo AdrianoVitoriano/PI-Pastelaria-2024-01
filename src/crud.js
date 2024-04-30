@@ -4,12 +4,11 @@ import { dataBase } from "./ormconfig.js";
 const msg404 = "Você precisa passar o ID! Burruuu";
 const msg400 = "ID não encontrado.";
 
-export async function getAll(req, table) {
+export async function getAll(table) {
   return await dataBase.getRepository(table).find();
 }
 export async function getById(req, table) {
-  const {id} = req;
-  
+  const { id } = req;
   if (id === undefined) {
     return {
       statusCode: 400,
@@ -19,11 +18,11 @@ export async function getById(req, table) {
 
   const res = await dataBase
     .getRepository(table.options.name)
-    .findOne(`id: ${id}`)
+    .find({ where: { id: id } })
     .catch((err) => {
       return err;
     });
-    return res
+  return res;
 }
 
 export async function insert(req, table) {
@@ -39,7 +38,7 @@ export async function insert(req, table) {
 }
 
 export async function updateById(req, table) {
-  const {id} = req;
+  const { id } = req;
   if (id === undefined) {
     return {
       statusCode: 400,
@@ -58,7 +57,7 @@ export async function updateById(req, table) {
 }
 
 export async function deleteById(req, table) {
-  const {id} = req;
+  const { id } = req;
   if (id === undefined) {
     return {
       statusCode: 400,

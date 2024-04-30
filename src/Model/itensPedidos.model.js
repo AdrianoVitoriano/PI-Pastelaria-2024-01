@@ -1,8 +1,8 @@
 import { EntitySchema } from "typeorm";
 
 export const ItensPedidos = new EntitySchema({
-  name: "itens_Pedidos",
-  tableName: "itens_Pedidos",
+  name: "itensPedidos",
+  tableName: "itensPedidos",
   columns: {
     id: {
       primary: true,
