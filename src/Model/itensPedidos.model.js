@@ -1,8 +1,8 @@
 import { EntitySchema } from "typeorm";
 
 export const ItensPedidos = new EntitySchema({
-  name: "itens_Pedidos",
-  tableName: "itens_Pedidos",
+  name: "itensPedidos",
+  tableName: "itensPedidos",
   columns: {
     id: {
       primary: true,
@@ -25,17 +25,17 @@ export const ItensPedidos = new EntitySchema({
       type: "int",
     },
   },
-  relations: {
-    Itens: {
-      type: "many-to-one",
-      target: "Itens",
-      inverseSide: "ItensPedidos",
-    },
-    Pedidos: {
-      type: "many-to-one",
-      target: "Pedidos",
-      inverseSide: "ItensPedidos",
-    },
-  },
+  // relations: {
+  //   Itens: {
+  //     type: "many-to-one",
+  //     target: "Itens",
+  //     inverseSide: "ItensPedidos",
+  //   },
+  //   Pedidos: {
+  //     type: "many-to-one",
+  //     target: "Pedidos",
+  //     inverseSide: "ItensPedidos",
+  //   },
+  // },
 
 });

@@ -16,11 +16,11 @@ export const ComandasPedidos = new EntitySchema({
       type: "int",
     },
   },
-  relations: {
-    ItensPedidos: {
-      type: "one-to-many",
-      target: "ItensPedidos",
-      inverseSide: "Pedidos",
-    },
-  }, 
+  // relations: {
+  //   ItensPedidos: {
+  //     type: "one-to-many",
+  //     target: "ItensPedidos",
+  //     inverseSide: "Pedidos",
+  //   },
+  // }, 
 });

@@ -3,7 +3,7 @@ import { insert, updateById, deleteById, getById, getAll } from "../crud.js";
 
 class ComandasController {
 static async getAllComandas(req, res) {
-  res.json(await getAll(req.body, Comandas));
+  res.json(await getAll(Comandas));
 }
 static async getComandaById(req, res) {
   res.json(await getById(req.body, Comandas));

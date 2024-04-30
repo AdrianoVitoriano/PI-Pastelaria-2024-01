@@ -22,11 +22,11 @@ export const Usuarios = new EntitySchema({
       type: "int",
     },
   },
-  relations: {
-    Pedidos: {
-      type: "one-to-many",
-      target: "Pedidos",
-      inverseSide: "Usuarios",
-    },
-  },
+  // relations: {
+  //   Pedidos: {
+  //     type: "one-to-many",
+  //     target: "Pedidos",
+  //     inverseSide: "Usuarios",
+  //   },
+  // },
 });

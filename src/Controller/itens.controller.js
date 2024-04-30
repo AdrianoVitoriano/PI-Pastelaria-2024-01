@@ -3,7 +3,7 @@ import { insert, updateById, deleteById, getById, getAll } from "../crud.js";
 
 class ItensController {
   static async getAllItens(req, res) {
-    res.json(await getAll(req.body, Itens));
+    res.json(await getAll(Itens));
   }
   static async getItemById(req, res) {
     res.json(await getById(req.body, Itens));

@@ -22,17 +22,17 @@ export const Itens = new EntitySchema({
         type: "int",
       },
   },
-  relations: {
-    Categorias: {
-        type: "many-to-one",
-        target: "Categorias",
-        inverseSide: "Itens"
-    },
-    ItensPedidos: {
-      type: "one-to-many",
-      target: "ItensPedidos",
-      inverseSide: "Itens"
-  },
-},
+//   relations: {
+//     Categorias: {
+//         type: "many-to-one",
+//         target: "Categorias",
+//         inverseSide: "Itens"
+//     },
+//     ItensPedidos: {
+//       type: "one-to-many",
+//       target: "ItensPedidos",
+//       inverseSide: "Itens"
+//   },
+// }, 
   
 });

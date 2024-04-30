@@ -14,11 +14,11 @@ export const Mesas = new EntitySchema({
     },
   },
   // relations: {
-    Pedidos: {
-      type: "one-to-many",
-      target: "Pedidos",
-      inverseSide: "Mesas",
-    },  
+  //   Pedidos: {
+  //     type: "one-to-many",
+  //     target: "Pedidos",
+  //     inverseSide: "Mesas",
+  //   },  
   //   Comandas: {
   //     type: "one-to-many",
   //     target: "Mesas",
