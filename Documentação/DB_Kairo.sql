@@ -2,8 +2,12 @@ CREATE TABLE produto (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nome TEXT NOT NULL,
     preco REAL NOT NULL,
-    tipo INTEGER NOT NULL
-    --os tipos serão listados da seguinteforma--
+    id_tipo INTEGER NOT NULL,
+    FOREIGN KEY (id_tipo) REFERENCES tipos(id)
+);
+CREATE TABLE tipos (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT NOT NULL
     -- 1. Bebida Alcoolica--
     -- 2. Bebida Sem Alcool--
     -- 3.Doce--
@@ -14,8 +18,8 @@ CREATE TABLE produto_backup (
     id_produto INTEGER NOT NULL,
     nome TEXT NOT NULL,
     preco REAL NOT NULL,
-    tipo INTEGER NOT NULL,
-    Foreign Key (id_produto) REFERENCES produto(id)
+    id_tipo INTEGER NOT NULL,
+    FOREIGN KEY (id_produto) REFERENCES produto(id)
 );
 
 CREATE TABLE funcionario (
@@ -38,6 +42,7 @@ CREATE TABLE comanda (
     id_mesa INTEGER NOT NULL,
     quantidade_pessoas INTEGER NOT NULL,
     abertura DATETIME DEFAULT CURRENT_TIMESTAMP,
+    aberta BOOLEAN DEFAULT 1,
     FOREIGN KEY (id_mesa) REFERENCES mesa(id)
 );
 
@@ -102,8 +107,8 @@ CREATE TRIGGER backup_produto
 AFTER UPDATE ON produto
 FOR EACH ROW
 BEGIN
-    INSERT INTO produto_backup (id_produto, nome, preco, tipo)
-    VALUES (OLD.id, OLD.nome, OLD.preco, OLD.tipo);
+    INSERT INTO produto_backup (id_produto, nome, preco, id_tipo)
+    VALUES (OLD.id, OLD.nome, OLD.preco, OLD.id_tipo);
 END;
 
 
