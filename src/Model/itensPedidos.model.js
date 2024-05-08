@@ -9,10 +9,10 @@ export const ItensPedidos = new EntitySchema({
       type: "int",
       generated: true,
     },
-    pedido_id: {
+    idPedido: {
       type: "int",
     },
-    item_id: {
+    iditem: {
       type: "int",
     },
     quantidade: {

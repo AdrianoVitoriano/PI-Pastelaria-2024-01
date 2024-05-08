@@ -9,14 +9,19 @@ export const Comandas = new EntitySchema({
       type: "int",
       generated: true,
     },
-    mesa_id: {
+    valorTotal: {
+      type: "real",
+      default: 0,
+    },
+    idMesa: {
       type: "int",
     },
-    total: {
-      type: "int",
+    abertura: {
+      type: "text",
     },
-    status: {
+    aberta: {
       type: "int",
+      default: 1,
     },
   },
 //   relations: {

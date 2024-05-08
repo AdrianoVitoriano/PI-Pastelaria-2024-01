@@ -4,7 +4,7 @@ import PedidosController from "./Controller/pedidos.controller.js";
 import MesasController from "./Controller/mesas.controller.js";
 import ItensController from "./Controller/itens.controller.js";
 import ComandasController from "./Controller/comandas.controller.js";
-import CategoriasController from "./Controller/categorias.controller.js";
+import TipoItensController from "./Controller/tipoItens.controller.js";
 
 export const router = Router();
 
@@ -12,13 +12,13 @@ router.get("/sayhi", (req, res) => {
   res.send("Hi!");
 }); // Rota de teste /sayhi, retorna "Hi!".
 
-// Rotas da tabela categorias
+// Rotas da tabela tipoitens
 
-router.get("/categorias", CategoriasController.getAllCategorias); // Rota que retorna todas as categorias.
-router.post("/categorias", CategoriasController.postCategoria); // Rota que insere uma categoria no banco de dados.
-router.put("/categorias", CategoriasController.putCategoria); // Rota que atualiza a categoria no banco pelo id.
-router.delete("/categorias", CategoriasController.deleteCategoria); // Rota que deleta a categoria do banco pelo id.
-router.get("/categorias/:id", CategoriasController.getCategoriaById); //  Rota que retorna uma categoria pelo id.
+router.get("/tipoitens", TipoItensController.getAllTipoItens); // Rota que retorna todas as categorias.
+router.post("/tipoitens", TipoItensController.postTipoItens); // Rota que insere uma categoria no banco de dados.
+router.put("/tipoitens", TipoItensController.putTipoItens); // Rota que atualiza a categoria no banco pelo id.
+router.delete("/tipoitens", TipoItensController.deleteTipoItens); // Rota que deleta a categoria do banco pelo id.
+router.get("/tipoitens/:id", TipoItensController.getTipoItensById); //  Rota que retorna uma categoria pelo id.
 
 // Rotas da tabela itens
 

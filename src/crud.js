@@ -29,12 +29,10 @@ export async function insert(req, table) {
   const res = await dataBase
     .getRepository(table.options.name)
     .save(req)
-    .then(() => {
-      return { statusCode: 200 };
-    })
     .catch((err) => {
       return err;
     });
+    return {result:true,id:res.id};
 }
 
 export async function updateById(req, table) {
@@ -73,4 +71,15 @@ export async function deleteById(req, table) {
     .catch((err) => {
       return err;
     });
+}
+export async function conferirComanda(req,table) {
+  const { idMesa } = req;
+  const res = await dataBase
+    .getRepository(table.options.name)
+    .find({ where: { idMesa: idMesa, aberta: 1 } })
+    .catch((err) => {
+      return err;
+    });
+  if(res[0]){return { result: true, id: res[0].id}}else{return { result: false}}
+  
 }

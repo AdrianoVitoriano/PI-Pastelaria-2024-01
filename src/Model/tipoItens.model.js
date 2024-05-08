@@ -1,20 +1,18 @@
 import { EntitySchema } from "typeorm";
 
-export const Categorias = new EntitySchema({
-  name: "categorias",
-  tableName: "categorias",
+export const TipoItens = new EntitySchema({
+  name: "tipoItens",
+  tableName: "tipoItens",
   columns: {
     id: {
       primary: true,
       type: "int",
       generated: true,
     },
-    categoria: {
+    nome: {
       type: "text",
     },
-    descricao: {
-      type: "text",
-    },
+
   },
   // relations: {
   //   Itens: {
