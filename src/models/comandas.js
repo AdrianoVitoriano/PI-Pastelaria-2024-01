@@ -4,11 +4,9 @@ import { EntitySchema } from "typeorm";
 /*---------------- Definição de Tabela SQL--------------*/
 // CREATE TABLE comandas (
 //   id INTEGER PRIMARY KEY AUTOINCREMENT,
-//   valorTotal REAL NOT NULL,
+//   valorTotal REAL,
 //   idMesa INTEGER NOT NULL,
-//   quantidadePessoas INTEGER NOT NULL,
 //   abertura DATETIME DEFAULT CURRENT_TIMESTAMP,
-//   aberta BOOLEAN DEFAULT 1,
 //   FOREIGN KEY (idMesa) REFERENCES mesas(id)
 // )
 /*---------------------------------------------------- */
@@ -24,13 +22,8 @@ export const comandas = new EntitySchema({
     },
     valorTotal: {
       type: "real", //tipo do tipo real
-      notNull: true, //nao pode ser nulo
     },
     idMesa: {
-      type: "integer", //tipo do tipo inteiro
-      notNull: true, //nao pode ser nulo
-    },
-    quantidade_pessoas: {
       type: "integer", //tipo do tipo inteiro
       notNull: true, //nao pode ser nulo
     },

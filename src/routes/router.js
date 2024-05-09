@@ -12,13 +12,63 @@ import { listaPedidosController } from "../controllers/listaPedidos.controller.j
 /*--------------- Definição de Rotas ----------------- */
 export const router = Router(); //cria e exportar o router antes de ser definido as rotas
 /*------------------ Rotas de Comandas -----------------*/
+//retorna todos os registros da tabela
 router.get("/comandas", comandasController.getComandas);
+/*----------------------*/
+//retorna um registro especifico
+router.get(
+  "/comandas/:id",
+  comandasController.getComandaById,
+);
+/*----------------------*/
+//cria um novo registro
+router.post("/comandas", comandasController.insertComanda);
+/*----------------------*/
+//atualiza um registro
+router.put("/comandas", comandasController.putComanda);
+/*----------------------*/
+//deleta um registro
+router.delete(
+  "/comandas",
+  comandasController.deleteComanda,
+);
 /*------------------ Rotas de Pedidos -----------------*/
+//retorna todos os registros da tabela
 router.get("/pedidos", pedidosController.getPedidos);
+/*----------------------*/
+//retorna um registro especifico
+router.get(
+  "/pedidos/:id",
+  pedidosController.getPedidosById,
+);
+/*----------------------*/
+//cria um novo registro
+router.post("/pedidos", pedidosController.insertPedidos);
+/*----------------------*/
+//atualiza um registro
+router.put("/pedidos", pedidosController.putPedidos);
+/*----------------------*/
+//deleta um registro
+router.delete("/pedidos", pedidosController.deletePedidos);
 /*------------------ Rotas de Mesas -----------------*/
+//retorna todos os registros da tabela
 router.get("/mesas", mesasController.getMesas);
+/*----------------------*/
+//retorna um registro especifico
+router.get("/mesas/:id", mesasController.getMesasById);
+/*----------------------*/
+//cria um novo registro
+router.post("/mesas", mesasController.insertMesas);
+/*----------------------*/
+//atualiza um registro
+router.put("/mesas", mesasController.putMesas);
+/*----------------------*/
+//deleta um registro
+router.delete("/mesas", mesasController.deleteMesas);
 /*------------------ Rotas de Produtos -----------------*/
+//retorna todos os registros da tabela
 router.get("/produtos", produtosController.getProdutos);
+
 /*------------ Rotas de Descrição de Pedidos -----------*/
 router.get(
   "/descricao",

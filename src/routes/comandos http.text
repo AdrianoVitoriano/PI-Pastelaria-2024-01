@@ -1,0 +1,16 @@
+GET: Solicita dados de um recurso específico do servidor. É usado para recuperar dados e não deve alterar o estado do servidor ou dos recursos.
+
+POST: Envia dados para serem processados por um recurso especificado. É comumente usado para enviar dados de formulário para o servidor, e esses dados podem criar um novo recurso ou atualizar um existente.
+
+PUT: Atualiza os dados de um recurso específico no servidor. É usado para atualizar ou substituir completamente um recurso existente com os dados fornecidos.
+
+DELETE: Remove um recurso específico do servidor. Quando um pedido DELETE é enviado, o recurso indicado é removido do servidor.
+
+PATCH: É usado para aplicar modificações parciais a um recurso. Ao contrário do PUT, que substitui completamente um recurso, o PATCH é usado para aplicar alterações parciais a um recurso existente.
+
+HEAD: Solicita apenas os cabeçalhos de resposta do servidor, sem o conteúdo do recurso. É útil para verificar a disponibilidade de um recurso ou obter informações sobre o recurso sem recuperar todo o conteúdo.
+
+OPTIONS: Solicita informações sobre as opções de comunicação disponíveis para o recurso alvo. É usado para determinar quais métodos HTTP são permitidos para um determinado recurso.
+
+TRACE: Solicita que o servidor retorne uma mensagem de loop-back, permitindo que o cliente veja quais mudanças ou adições foram feitas pelo servidor ao receber a solicitação.
+CONNECT: Usado para estabelecer uma conexão de túnel ao servidor identificado pelo recurso.
