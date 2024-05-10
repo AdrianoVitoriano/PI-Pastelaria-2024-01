@@ -5,7 +5,7 @@ import MesasController from "./Controller/mesas.controller.js";
 import ItensController from "./Controller/itens.controller.js";
 import ComandasController from "./Controller/comandas.controller.js";
 import TipoItensController from "./Controller/tipoItens.controller.js";
-
+import ItensPedidosController from "./Controller/itensPedidos.controller.js"
 export const router = Router();
 
 router.get("/sayhi", (req, res) => {
@@ -59,3 +59,8 @@ router.post("/comandas", ComandasController.postComanda); // Rota que insere uma
 router.put("/comandas", ComandasController.putComanda); // Rota que atualiza a comanda no banco pelo id.
 router.delete("/comandas", ComandasController.deleteComanda); // Rota que deleta a comanda do banco pelo id.
 router.get("/comandas/:id", ComandasController.getComandaById); //  Rota que retorna uma comanda pelo id.
+
+// Rotas da tabela itensPedidos
+
+router.get("/itenspedidos", ItensPedidosController.getAllItensPedidos); // Rota que retorna todas as comandas.
+router.get("/itenspedidos/:id", ItensPedidosController.getItensPedidosById); //  Rota que retorna uma comanda pelo id.

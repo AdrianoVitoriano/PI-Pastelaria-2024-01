@@ -9,7 +9,7 @@ export const Comandas = new EntitySchema({
       type: "int",
       generated: true,
     },
-    valorTotal: {
+    total: {
       type: "real",
       default: 0,
     },

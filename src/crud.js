@@ -1,5 +1,6 @@
 import { Query } from "typeorm/driver/Query.js";
 import { dataBase } from "./ormconfig.js";
+import { In } from "typeorm";
 
 const msg404 = "Você precisa passar o ID! Burruuu";
 const msg400 = "ID não encontrado.";
@@ -24,6 +25,21 @@ export async function getById(req, table) {
     });
   return res;
 }
+export async function getSomeById(arrayId, table,arrayColumnsReturn) {
+  if (arrayId[0] === undefined) {
+    return {
+      statusCode: 400,
+      msg: msg404,
+    };
+  }
+  return await dataBase
+    .getRepository(table.options.name)
+    .createQueryBuilder(table.options.name)
+    .select(arrayColumnsReturn)
+    .where({ id: In(arrayId) })
+    .getRawMany()
+
+}
 
 export async function insert(req, table) {
   const res = await dataBase
@@ -37,6 +53,7 @@ export async function insert(req, table) {
 
 export async function updateById(req, table) {
   const { id } = req;
+  console.log(req)
   if (id === undefined) {
     return {
       statusCode: 400,
@@ -46,12 +63,10 @@ export async function updateById(req, table) {
   const res = await dataBase
     .getRepository(table.options.name)
     .update(id, req)
-    .then(() => {
-      return { statusCode: 200 };
-    })
     .catch((err) => {
       return err;
     });
+  if(res[0]){return { result: true, id: res[0].id}}else{return { result: false}}
 }
 
 export async function deleteById(req, table) {
@@ -65,12 +80,10 @@ export async function deleteById(req, table) {
   const res = await dataBase
     .getRepository(table.options.name)
     .delete(id)
-    .then(() => {
-      return { statusCode: 200 };
-    })
     .catch((err) => {
       return err;
     });
+  if(res[0]){return { result: true, id: res[0].id}}else{return { result: false}}
 }
 export async function conferirComanda(req,table) {
   const { idMesa } = req;
@@ -80,6 +93,9 @@ export async function conferirComanda(req,table) {
     .catch((err) => {
       return err;
     });
-  if(res[0]){return { result: true, id: res[0].id}}else{return { result: false}}
-  
+  if(res[0]){return { result: true, id: res[0].id, valorTotal:res[0].valorTotal}}else{return { result: false}}
+}
+export function dataHora(){
+  const date = new Date();
+  return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} | ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 }

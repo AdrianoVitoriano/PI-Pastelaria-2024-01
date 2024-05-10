@@ -16,8 +16,9 @@ export const Pedidos = new EntitySchema({
     idComanda: {
       type: "int",
     },
-    subtotal: {
+    total: {
       type: "real",
+      default: 0,
     },
     dataHorario: {
       type: "text",
