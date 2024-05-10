@@ -1,18 +1,20 @@
 import { Pedidos } from "../Model/pedidos.model.js";
-import { ItensPedidos } from "../Model/itensPedidos.model.js";
-import { Itens } from "../Model/itens.model.js";
-import { conferirComandaExecutar } from "./comandas.controller.js";
+import {
+  atualizarTotalComanda,
+  conferirComandaExecutar,
+} from "./comandas.controller.js";
+import { validarMesa } from "./mesas.controller.js";
+import {validarUsuario} from "./usuarios.controller.js"
 import {
   insert,
   updateById,
   deleteById,
   getById,
   getAll,
-  conferirComanda,
   dataHora,
-  getSomeById,
 } from "../crud.js";
-import { Comandas } from "../Model/comandas.model.js";
+import { inserirItens } from "./itensPedidos.controller.js";
+import { resolveObjectURL } from "buffer";
 
 class PedidosController {
   static async getAllPedidos(req, res) {
@@ -22,46 +24,24 @@ class PedidosController {
     res.json(await getById(req.body, Pedidos));
   }
   static async postPedido(req, res) {
-    req.body.dataHorario = dataHora();
-    const comanda = await conferirComandaExecutar(
-      {
+    let body = req.body;
+    body.dataHorario = dataHora();
+
+    if((await validarRequisição(body)).result){
+      const comanda = await conferirComandaExecutar({
         body: {
-          idMesa: req.body.idMesa,
-          abertura: req.body.dataHorario,
-        },
-      },
-      insert
-    );
-    req.body.idComanda = comanda.id;
-    req.body.id = (await insert(req.body, Pedidos)).id;
-    const valoresItens = await getSomeById(
-      req.body.itens.map((item) => item.idItem),
-      Itens,
-      ["itens.id", "itens.preco"]
-    );
-    req.body.itens.forEach((objeto) => {
-      objeto.subtotal =
-        objeto.quantidade *
-        valoresItens.find((item) => item.itens_id == objeto.idItem).itens_preco;
-      objeto.idPedido = req.body.id;
-      req.body.total += objeto.subtotal;
-    });
+            idMesa: body.idMesa,
+            abertura: body.dataHorario,
+          }
+        },insert);
+      body.idComanda = comanda.id;
+      body.id = (await insert(body, Pedidos)).id;
+      body.total = await inserirItens(body.itens,body.id)
+      await atualizarTotalPedido(body.id,body.total);
+      await atualizarTotalComanda(body.idComanda,body.total + (isNaN(comanda.total)?0:comanda.total))
+      res.json({result:true,id: body.id})
+    }else{res.json({error:"requisição não passou nas validações."});}
 
-    req.body.itens.forEach(async (objeto) => {
-      await insert(objeto, ItensPedidos);
-    });
-    await updateById({ id: req.body.id, total: req.body.total }, Pedidos);
-
-    if(isNaN(comanda.total)){comanda.total = 0}else{console.log("entrou no Else?")}
-    console.log(comanda.total)
-    await updateById(
-      {
-        id: req.body.idComanda,
-        total: req.body.total + comanda.total,
-      },
-      Comandas
-    );
-    res.json({result:true,id:req.body.id});
   }
   static async putPedido(req, res) {
     res.json(await updateById(req.body, Pedidos));
@@ -69,6 +49,13 @@ class PedidosController {
   static async deletePedido(req, res) {
     res.json(await deleteById(req.body, Pedidos));
   }
+}
+
+async function atualizarTotalPedido(id, total) {
+  await updateById({ id, total }, Pedidos);
+}
+async function validarRequisição(body) {
+  return (await validarMesa(body.idMesa) && await validarUsuario(body.idUsuario) && ((body.itens)?((body.itens[0])?true:false):false))?{result:true}:{result:false}
 }
 
 export default PedidosController;

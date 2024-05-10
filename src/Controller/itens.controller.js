@@ -1,5 +1,5 @@
 import { Itens } from "../Model/itens.model.js";
-import { insert, updateById, deleteById, getById, getAll } from "../crud.js";
+import { insert, updateById, deleteById, getById, getAll,getSomeById } from "../crud.js";
 
 class ItensController {
   static async getAllItens(req, res) {
@@ -17,6 +17,9 @@ class ItensController {
   static async deleteItem(req, res) {
     res.json(await deleteById(req.body, Itens));
   }
+}
+export async function getPrecos(ids){
+  return await getSomeById(ids,Itens,["itens.id", "itens.preco"])
 }
 
 export default ItensController;

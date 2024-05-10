@@ -48,5 +48,8 @@ export async function conferirComandaExecutar(req, callback) {
     }
   }
 }
+export async function atualizarTotalComanda(id,total){
+  await updateById({id,total},Comandas);
+}
 
 export default ComandasController;

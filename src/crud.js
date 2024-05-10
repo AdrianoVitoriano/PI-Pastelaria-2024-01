@@ -23,7 +23,10 @@ export async function getById(req, table) {
     .catch((err) => {
       return err;
     });
-  return res;
+  if(res[0]){
+    res.result = true
+    return res
+  }else{return { result: false}}
 }
 export async function getSomeById(arrayId, table,arrayColumnsReturn) {
   if (arrayId[0] === undefined) {
