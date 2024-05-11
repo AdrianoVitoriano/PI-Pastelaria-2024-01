@@ -74,3 +74,50 @@ export async function deleteById(req, table) {
       return err;
     });
 }
+
+async function consultarDados() {
+  // Crie a conexão com o banco de dados
+  const connection = await createConnection();
+
+  try {
+    // Consulta para obter o total da comanda
+    const totalComanda = await connection
+      .getRepository(Comanda)
+      .createQueryBuilder("comanda")
+      .select("SUM(comanda.total)", "total")
+      .getRawOne();
+
+    console.log("Total da comanda:", totalComanda.total);
+
+    // Consulta para obter o total vendido por mesa
+    const totalPorMesa = await connection
+      .getRepository(Comanda)
+      .createQueryBuilder("comanda")
+      .select("mesa.numero", "mesa")
+      .addSelect("SUM(comanda.total)", "total")
+      .leftJoin(Mesa, "mesa", "mesa.id = comanda.mesaId")
+      .groupBy("mesa.numero")
+      .getRawMany();
+
+    console.log("Total vendido por mesa:");
+    console.table(totalPorMesa);
+
+    // Consulta para obter o total vendido por garçom
+    const totalPorGarcom = await connection
+      .getRepository(Comanda)
+      .createQueryBuilder("comanda")
+      .select("garcom.nome", "garcom")
+      .addSelect("SUM(comanda.total)", "total")
+      .leftJoin(Garcom, "garcom", "garcom.id = comanda.garcomId")
+      .groupBy("garcom.nome")
+      .getRawMany();
+
+    console.log("Total vendido por garçom:");
+    console.table(totalPorGarcom);
+  } catch (error) {
+    console.error("Erro ao consultar os dados:", error);
+  } finally {
+    // Feche a conexão com o banco de dados quando terminar
+    await connection.close();
+  }
+}

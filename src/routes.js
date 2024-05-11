@@ -1,4 +1,5 @@
 import { Router } from "express";
+import {totalPorUsuario, totalPorMesa} from "./Controller/relatorio.controller.js";
 import UsuarioController from "./Controller/usuarios.controller.js";
 import PedidosController from "./Controller/pedidos.controller.js";
 import MesasController from "./Controller/mesas.controller.js";
@@ -59,3 +60,6 @@ router.post("/comandas", ComandasController.postComanda); // Rota que insere uma
 router.put("/comandas", ComandasController.putComanda); // Rota que atualiza a comanda no banco pelo id.
 router.delete("/comandas", ComandasController.deleteComanda); // Rota que deleta a comanda do banco pelo id.
 router.get("/comandas/:id", ComandasController.getComandaById); //  Rota que retorna uma comanda pelo id.
+
+router.get("/relatorio/totalPorUsuario", totalPorUsuario);
+router.get("/relatorio/totalPorMesa", totalPorMesa);
