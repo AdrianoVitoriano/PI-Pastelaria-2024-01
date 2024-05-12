@@ -1,5 +1,5 @@
 /*---------------- Importaçôes ---------------*/
-import { dataBase } from "./ormConfigDB"; //importa a base de dados
+import { dataBase } from "./database/ormConfigDB.js"; //importa a base de dados
 /*---------------------------------------------- */
 /*------------------- Mensagens --------------------*/
 const msg = {
@@ -32,7 +32,7 @@ export async function getById(req, table) {
   const res = await dataBase
     .getRepository(table.options.name)
     //table.options.name = nome da tabela
-    .findOne(`id: ${id}`)
+    .findOne({ id: id })
     //findOne = seleciona um registro da tabela pelo ID
     .catch((err) => {
       return err;

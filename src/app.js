@@ -1,6 +1,6 @@
 import express from "express"; //importa o express para criar o servidor e definir rotas
 import cors from "cors"; //importa o cors para permitir acesso de qualquer origem
-import { router } from "./routes/router.js"; //importa as rotas do router de produtos_router.js
+import { router } from "./router.js"; //importa as rotas do router de produtos_router.js
 import fs from "fs"; //importa o fs para ler o certificado
 import https from "https"; // importa o https para ler o certificado
 /*----------------------------------------------------- */
@@ -13,6 +13,7 @@ const door = 3000; //define a porta do servidor
 const door2 = 3001; //define a porta do servidor
 /*---------------------------------------------------- */
 //servidor http
+//http://localhost:3000
 app.listen(door, () =>
   console.log(`Servidor Rodando na porta ${door}`),
 ); //inicia o servidor na porta da variável door

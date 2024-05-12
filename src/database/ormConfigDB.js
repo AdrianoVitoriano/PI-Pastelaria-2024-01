@@ -1,25 +1,27 @@
 /*--------------- Importação de Tabelas ----------------*/
 import { DataSource } from "typeorm";
-import { comandas } from "./models/comandas";
-import { descricaoPedidos } from "./models/descricaoPedidos";
-import { funcionarios } from "./models/funcionarios";
-import { listaPedidos } from "./models/listaPedidos";
-import { mesas } from "./models/mesas";
-import { pedidos } from "./models/pedidos";
-import { produtos } from "./models/produtos";
-import { tipos } from "./models/tipos";
+import { comandas } from "../models/comandas.js";
+import { descricaoPedidos } from "../models/descricaoPedidos.js";
+import { funcionarios } from "../models/funcionarios.js";
+
+import { mesas } from "../models/mesas.js";
+import { pedidos } from "../models/pedidos.js";
+import { produtos } from "../models/produtos.js";
+import { tipos } from "../models/tipos.js";
+import * as path from "path"; //biblioteca para caminhos
+
 /*--------------------------------------------------- */
 /*------------ Definição do Banco de Dados ------------*/
 export const dataBase = new DataSource({
   type: "sqlite", //tipo do banco
-  database: "database.db", //nome do arquivo
+  database: "database.db", //caminho do banco
   synchronize: true, //Habilita a sincronização automática do esquema do banco de dados com os modelos de entidades definidos. Isso significa que as tabelas serão criadas automaticamente com base nos modelos fornecidos.
   entities: [
     //array de entidades
     comandas,
     descricaoPedidos,
     funcionarios,
-    listaPedidos,
+
     mesas,
     pedidos,
     produtos,

@@ -4,6 +4,7 @@ import { EntitySchema } from "typeorm";
 /*---------------- Definição de Tabela SQL--------------*/
 // CREATE TABLE pedidos(
 //   id INTEGER PRIMARY KEY AUTOINCREMENT,
+//   idComanda INTEGER NOT NULL,
 //   idFuncionario INTEGER NOT NULL,
 //   idMesa INTEGER NOT NULL,
 //   subtotal REAL NOT NULL,
@@ -21,6 +22,10 @@ export const pedidos = new EntitySchema({
       primary: true, //chave primária
       generated: true, //gerado automaticamente
     },
+    idComanda: {
+      type: "integer", //tipo do tipo inteiro
+      notNull: true, //nao pode ser nulo
+    },
     idFuncionario: {
       type: "integer", //tipo do tipo inteiro
       notNull: true, //nao pode ser nulo
@@ -36,6 +41,14 @@ export const pedidos = new EntitySchema({
   },
   //relacionamentos entre tabelas
   relations: {
+    comandas: {
+      target: "comandas", //nome da tabela
+      type: "many-to-one", //tipo do relacionamento
+      joinColumn: {
+        name: "idComanda", //nome da coluna
+        referencedColumnName: "id", // chave estrangeira
+      },
+    },
     garcoms: {
       target: "funcionarios", //nome da tabela
       type: "many-to-one", //tipo do relacionamento

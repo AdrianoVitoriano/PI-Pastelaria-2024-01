@@ -28,7 +28,7 @@ export const comandas = new EntitySchema({
       notNull: true, //nao pode ser nulo
     },
     abertura: {
-      type: "timestamp", //tipo do tipo timestamp
+      type: "text", //tipo do tipo timestamp
       default: () => "CURRENT_TIMESTAMP", //data atual
     },
   },
