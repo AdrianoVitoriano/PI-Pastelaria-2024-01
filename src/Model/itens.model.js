@@ -28,8 +28,6 @@ export const Itens = new EntitySchema({
 //     ItensPedidos: {
 //       type: "one-to-many",
 //       target: "ItensPedidos",
-//       inverseSide: "Itens"
 //   },
 // }, 
-  
 });

@@ -23,7 +23,7 @@ export const ItensPedidos = new EntitySchema({
       default: 0,
     },
     subtotal: {
-      type: "int",
+      type: "real",
     },
   },
   // relations: {
@@ -38,5 +38,4 @@ export const ItensPedidos = new EntitySchema({
   //     inverseSide: "ItensPedidos",
   //   },
   // },
-
 });

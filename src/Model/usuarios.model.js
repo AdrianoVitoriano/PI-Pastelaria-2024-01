@@ -29,7 +29,6 @@ export const Usuarios = new EntitySchema({
   //   Pedidos: {
   //     type: "one-to-many",
   //     target: "Pedidos",
-  //     inverseSide: "Usuarios",
   //   },
   // },
 });

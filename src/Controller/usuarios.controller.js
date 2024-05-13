@@ -18,9 +18,7 @@ class UsuarioController {
     res.json(await deleteById(req.body, Usuarios));
   }
 }
-
 export async function validarUsuario(id){
 return (await getById({id,}, Usuarios)).result  ?true:false
 }
-
 export default UsuarioController;
