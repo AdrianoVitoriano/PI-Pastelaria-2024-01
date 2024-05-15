@@ -9,7 +9,7 @@ export const Mesas = new EntitySchema({
       type: "int",
       generated: true,
     }, 
-    posicao: {
+    localizacao: {
       type: "text",
     },
   },

@@ -19,4 +19,8 @@ class UsuarioController {
   }
 }
 
+export async function validarUsuario(id){
+return (await getById({id,}, Usuarios)).result  ?true:false
+}
+
 export default UsuarioController;

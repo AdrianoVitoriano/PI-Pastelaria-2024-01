@@ -19,4 +19,8 @@ class MesasController {
   }
 }
 
+export async function validarMesa(id){
+  return (await getById({id,}, Mesas)).result  ?true:false
+}
+
 export default MesasController;

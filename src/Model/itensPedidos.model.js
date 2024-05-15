@@ -9,10 +9,10 @@ export const ItensPedidos = new EntitySchema({
       type: "int",
       generated: true,
     },
-    pedido_id: {
+    idPedido: {
       type: "int",
     },
-    item_id: {
+    idItem: {
       type: "int",
     },
     quantidade: {
@@ -20,6 +20,7 @@ export const ItensPedidos = new EntitySchema({
     },
     cozinha: {
       type: "int",
+      default: 0,
     },
     subtotal: {
       type: "int",

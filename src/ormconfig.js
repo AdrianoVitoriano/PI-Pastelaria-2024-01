@@ -1,29 +1,26 @@
 import { DataSource } from "typeorm";
 import { Mesas } from "./Model/mesas.model.js";
-import { Categorias } from "./Model/categorias.model.js";
+import { TipoItens } from "./Model/tipoItens.model.js";
 import { Itens } from "./Model/itens.model.js";
 import { ItensPedidos } from "./Model/itensPedidos.model.js";
 import { Pedidos } from "./Model/pedidos.model.js";
 import { Usuarios } from "./Model/usuarios.model.js";
-import { ComandasPedidos } from "./Model/comandasPedidos.model.js";
 import { Comandas } from "./Model/comandas.model.js";
 
 export const dataBase = new DataSource({
-  // Cria o objeto do banco de dados
-  type: "sqlite", // Tipo do banco de dados
-  database: "./database.db", // Caminho do banco
+  type: "sqlite",
+  database: "./database.db",
   entities: [
     Mesas,
-    Categorias,
+    TipoItens,
     Itens,
     ItensPedidos,
     Pedidos,
     Usuarios,
-    ComandasPedidos,
     Comandas,
-  ], // Variáveis das entidades(Tabelas) do banco.
-  logging: true, // log das queries executadas
-  synchronize: true, // cria as tabelas automaticamente
+  ],
+  logging: true,
+  synchronize: true,
 });
 
 dataBase

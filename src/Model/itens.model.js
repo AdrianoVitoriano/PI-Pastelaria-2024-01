@@ -12,15 +12,12 @@ export const Itens = new EntitySchema({
     nome: {
       type: "text",
     },
-    sabor: {
-      type: "text",
-    },
-    categoria_id: {
-      type: "text",
-    },
     preco: {
-        type: "int",
-      },
+      type: "real",
+    },
+    idTipo: {
+      type: "int",
+    },
   },
 //   relations: {
 //     Categorias: {
