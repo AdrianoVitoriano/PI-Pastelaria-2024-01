@@ -12,14 +12,17 @@ export const Usuarios = new EntitySchema({
     nome: {
       type: "text",
     },
+    cargo: {
+      type: "int",
+    },
     email: {
       type: "text",
     },
+    cpf: {
+      type: "int",
+    },
     senha: {
       type: "text",
-    },
-    tipo: {
-      type: "int",
     },
   },
   // relations: {

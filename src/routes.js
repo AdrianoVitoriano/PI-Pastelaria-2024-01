@@ -1,25 +1,25 @@
 import { Router } from "express";
-import {totalPorUsuario, totalPorMesa} from "./Controller/relatorio.controller.js";
+import RelatoriosController from "./Controller/relatorio.controller.js";
 import UsuarioController from "./Controller/usuarios.controller.js";
 import PedidosController from "./Controller/pedidos.controller.js";
 import MesasController from "./Controller/mesas.controller.js";
 import ItensController from "./Controller/itens.controller.js";
 import ComandasController from "./Controller/comandas.controller.js";
-import CategoriasController from "./Controller/categorias.controller.js";
-
+import TipoItensController from "./Controller/tipoItens.controller.js";
+import ItensPedidosController from "./Controller/itensPedidos.controller.js"
 export const router = Router();
 
 router.get("/sayhi", (req, res) => {
   res.send("Hi!");
 }); // Rota de teste /sayhi, retorna "Hi!".
 
-// Rotas da tabela categorias
+// Rotas da tabela tipoitens
 
-router.get("/categorias", CategoriasController.getAllCategorias); // Rota que retorna todas as categorias.
-router.post("/categorias", CategoriasController.postCategoria); // Rota que insere uma categoria no banco de dados.
-router.put("/categorias", CategoriasController.putCategoria); // Rota que atualiza a categoria no banco pelo id.
-router.delete("/categorias", CategoriasController.deleteCategoria); // Rota que deleta a categoria do banco pelo id.
-router.get("/categorias/:id", CategoriasController.getCategoriaById); //  Rota que retorna uma categoria pelo id.
+router.get("/tipoitens", TipoItensController.getAllTipoItens); // Rota que retorna todas as categorias.
+router.post("/tipoitens", TipoItensController.postTipoItens); // Rota que insere uma categoria no banco de dados.
+router.put("/tipoitens", TipoItensController.putTipoItens); // Rota que atualiza a categoria no banco pelo id.
+router.delete("/tipoitens", TipoItensController.deleteTipoItens); // Rota que deleta a categoria do banco pelo id.
+router.get("/tipoitens/:id", TipoItensController.getTipoItensById); //  Rota que retorna uma categoria pelo id.
 
 // Rotas da tabela itens
 
@@ -61,5 +61,10 @@ router.put("/comandas", ComandasController.putComanda); // Rota que atualiza a c
 router.delete("/comandas", ComandasController.deleteComanda); // Rota que deleta a comanda do banco pelo id.
 router.get("/comandas/:id", ComandasController.getComandaById); //  Rota que retorna uma comanda pelo id.
 
-router.get("/relatorio/totalPorUsuario", totalPorUsuario);
-router.get("/relatorio/totalPorMesa", totalPorMesa);
+// Rotas da tabela itensPedidos
+
+router.get("/itenspedidos", ItensPedidosController.getAllItensPedidos); // Rota que retorna todas as comandas.
+router.get("/itenspedidos/:id", ItensPedidosController.getItensPedidosById); //  Rota que retorna uma comanda pelo id.
+
+router.get("/relatorio/totalUsuario", RelatoriosController.totalUsuario);
+router.get("/relatorio/totalMesa", RelatoriosController.totalMesa);

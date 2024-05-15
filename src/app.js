@@ -10,7 +10,7 @@ app.use(express.json()); // Permite que a API receba requisições no formato JS
 app.use(cors()); // reduz erros na consulta
 app.use(router); // Busca as rotas no arquivo routes.js
 
-app.listen(port, async function(){
+app.listen(port, ()=>{
   console.clear();
   console.log(`API executando na porta ${port}`);
 });
