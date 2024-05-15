@@ -1,6 +1,5 @@
-import { Query } from "typeorm/driver/Query.js";
 import { dataBase } from "./ormconfig.js";
-import { In } from "typeorm";
+import { In, IsNull } from "typeorm";
 
 const err400 = {
   statusCode: 400,
@@ -110,6 +109,8 @@ export function dataHora() {
     date.getMonth() + 1
   }/${date.getFullYear()} | ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 }
+
+console.log(existeId("a"))
 function existeId(id) {
-  return id === undefined ? false : true;
+  return (IsNull(id/2))? true : false;
 }

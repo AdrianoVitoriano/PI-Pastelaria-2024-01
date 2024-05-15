@@ -1,7 +1,7 @@
 import { Usuarios } from "../Model/usuarios.model.js";
 import { insert, updateById, deleteById, getById, getAll } from "../crud.js";
 
-class UsuarioController {
+class UsuariosController {
   static async getAllUsuarios(req, res) {
     res.json(await getAll(Usuarios));
   }
@@ -21,4 +21,4 @@ class UsuarioController {
 export async function validarUsuario(id){
 return (await getById({id,}, Usuarios)).result  ?true:false
 }
-export default UsuarioController;
+export default UsuariosController;

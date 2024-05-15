@@ -12,9 +12,10 @@ import {
   getById,
   getAll,
   dataHora,
+  conferirComanda,
 } from "../crud.js";
 import { inserirItens } from "./itensPedidos.controller.js";
-import { resolveObjectURL } from "buffer";
+import { Comandas } from "../Model/comandas.model.js";
 
 class PedidosController {
   static async getAllPedidos(req, res) {
@@ -27,7 +28,7 @@ class PedidosController {
     let body = req.body;
     body.dataHorario = dataHora();
 
-    if((await validarRequisição(body)).result){
+    if((await validarRequisição(body,1)).result){
       const comanda = await conferirComandaExecutar({
         body: {
             idMesa: body.idMesa,
@@ -44,7 +45,12 @@ class PedidosController {
 
   }
   static async putPedido(req, res) {
-    res.json(await updateById(req.body, Pedidos));
+
+    if((await validarRequisição(req.body,1)).result){
+      res.json(await updateById(req.body, Pedidos));
+    }else{res.json({error:"requisição não passou nas validações."});}
+    
+
   }
   static async deletePedido(req, res) {
     res.json(await deleteById(req.body, Pedidos));
@@ -54,8 +60,22 @@ class PedidosController {
 async function atualizarTotalPedido(id, total) {
   await updateById({ id, total }, Pedidos);
 }
-async function validarRequisição(body) {
-  return (await validarMesa(body.idMesa) && await validarUsuario(body.idUsuario) && ((body.itens)?((body.itens[0])?true:false):false))?{result:true}:{result:false}
+async function validarRequisição(body,option) {
+  let mesa,itens,comanda = true
+  let usuario = await validarUsuario(body.idUsuario)
+
+  switch (option){
+    case 1:
+      itens = (body.itens)?((body.itens[0])?true:false):false
+      mesa = await validarMesa(body.idMesa)
+      break
+    case 2:
+      comanda = await conferirComanda({body:{idMesa:body.idMesa}},Comandas).result
+      usuario = await validarUsuario(body.idUsuario)
+      break
+  }
+  return (comanda && mesa && usuario && itens)?{result:true}:{result:false}
+  
 }
 
 export default PedidosController;

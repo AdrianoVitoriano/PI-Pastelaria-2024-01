@@ -1,5 +1,5 @@
 import { Router } from "express";
-import UsuarioController from "./Controller/usuarios.controller.js";
+import UsuariosController from "./Controller/usuarios.controller.js";
 import PedidosController from "./Controller/pedidos.controller.js";
 import MesasController from "./Controller/mesas.controller.js";
 import ItensController from "./Controller/itens.controller.js";
@@ -38,11 +38,11 @@ router.get("/pedidos/:id", PedidosController.getPedidoById); //  Rota que retorn
 
 // Rotas da tabela usuarios
 
-router.get("/usuarios", UsuarioController.getAllUsuarios); // Rota que retorna todas os usuarios.
-router.post("/usuarios", UsuarioController.postUsuario); // Rota que insere um usuarios no banco de dados.
-router.put("/usuarios", UsuarioController.putUsuario); // Rota que atualiza o usuarios no banco pelo id.
-router.delete("/usuarios", UsuarioController.deleteUsuario); // Rota que deleta o usuarios do banco pelo id.
-router.get("/usuarios/:id", UsuarioController.getUsuarioById); //  Rota que retorna o usuarios pelo id.
+router.get("/usuarios", UsuariosController.getAllUsuarios); // Rota que retorna todas os usuarios.
+router.post("/usuarios", UsuariosController.postUsuario); // Rota que insere um usuarios no banco de dados.
+router.put("/usuarios", UsuariosController.putUsuario); // Rota que atualiza o usuarios no banco pelo id.
+router.delete("/usuarios", UsuariosController.deleteUsuario); // Rota que deleta o usuarios do banco pelo id.
+router.get("/usuarios/:id", UsuariosController.getUsuarioById); //  Rota que retorna o usuarios pelo id.
 
 // Rotas da tabela mesas
 

@@ -2,7 +2,7 @@ import { Mesas } from "../Model/mesas.model.js";
 import { insert, updateById, deleteById, getById, getAll } from "../crud.js";
 
 class MesasController {
-  static async getAllMesas(req, res) {
+  static async getAllMesas(req,res) {
     res.json(await getAll(Mesas));
   }
   static async getMesaById(req, res) {
