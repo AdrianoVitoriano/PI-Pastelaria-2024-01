@@ -38,6 +38,8 @@ class PedidosController {
       body.id = (await insert(body, Pedidos)).id;
       body.total = await inserirItens(body.itens,body.id)
       await atualizarTotalPedido(body.id,body.total);
+      console.log(body.total)
+      console.log(comanda.total)
       await atualizarTotalComanda(body.idComanda,body.total + (isNaN(comanda.total)?0:comanda.total))
       res.json({result:true,id: body.id})
     }else{res.json({error:"requisição não passou nas validações."});}

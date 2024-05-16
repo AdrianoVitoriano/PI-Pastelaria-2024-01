@@ -98,7 +98,8 @@ export async function conferirComanda(body, table) {
           return err;
         });
       if (res[0]) {
-        return { result: true, id: res[0].id, valorTotal: res[0].valorTotal };
+        console.log(res)
+        return { result: true, id: res[0].id, total: res[0].total };
       } else {
         return { result: false };
       }
