@@ -16,20 +16,25 @@ export const Itens = new EntitySchema({
       type: "real",
     },
     idTipo: {
+      name: "tipoItensId",
       type: "int",
     },
   },
-//   relations: {
-//     Categorias: {
-//         type: "many-to-one",
-//         target: "Categorias",
-//         inverseSide: "Itens"
-//     },
-//     ItensPedidos: {
-//       type: "one-to-many",
-//       target: "ItensPedidos",
-//       inverseSide: "Itens"
-//   },
-// }, 
-  
+  relations: {
+    tipoItens: {
+      type: "many-to-one",
+      target: "tipoItens",
+      inverseSide: "itens",
+    },
+    itensPedidos: {
+      type: "one-to-many",
+      target: "itensPedidos",
+      inverseSide: "itens",
+    },
+    cozinhas: {
+      type: "one-to-many",
+      target: "cozinhas",
+      inverseSide: "itens",
+    },
+  },
 });

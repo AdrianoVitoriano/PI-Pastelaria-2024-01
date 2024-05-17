@@ -11,9 +11,11 @@ export const Pedidos = new EntitySchema({
       generated: true,
     },
     idUsuario: {
+      name: "usuariosId",
       type: "int",
     },
     idComanda: {
+      name: "comandasId",
       type: "int",
     },
     total: {
@@ -22,26 +24,32 @@ export const Pedidos = new EntitySchema({
     },
     dataHorario: {
       type: "text",
+    },    
+    finalizado: {
+      type: "int",
+      default: 0,
     },
   },
-  // relations: {
-  //   ItensPedidos: {
-  //     type: "one-to-many",
-  //     target: "ItensPedidos", 
-  //     inverseSide: "Pedidos",
-  //   },
-  //   Usuarios: {
-  //     type: "many-to-one",
-  //     target: "Usuarios",
-  //     inverseSide: "Pedidos",
-  //   },
-  //   Mesas: {
-  //     type: "many-to-one", 
-  //     target: "Mesas",
-  //     inverseSide: "Pedidos",
-  //   },
-  //   ComandasPedidos: {
-  //     type: ""
-  //   }
-  // },
+  relations: {
+    itensPedidos: {
+      type: "one-to-many",
+      target: "itensPedidos", 
+      inverseSide: "pedidos",
+    },
+    usuarios: {
+      type: "many-to-one",
+      target: "usuarios",
+      inverseSide: "pedidos",
+    },
+    comandas: {
+      type: "many-to-one",
+      target: "comandas",
+      inverseSide: "pedidos"
+    },
+    cozinhas:{
+      type: "one-to-many",
+      target:"cozinhas",
+      inverseSide:"pedidos"
+    },
+  },
 });

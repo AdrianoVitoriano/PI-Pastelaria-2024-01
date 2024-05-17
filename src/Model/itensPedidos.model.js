@@ -10,9 +10,11 @@ export const ItensPedidos = new EntitySchema({
       generated: true,
     },
     idPedido: {
+      name: "pedidosId",
       type: "int",
     },
     idItem: {
+      name: "itensId",
       type: "int",
     },
     quantidade: {
@@ -23,20 +25,19 @@ export const ItensPedidos = new EntitySchema({
       default: 0,
     },
     subtotal: {
-      type: "int",
+      type: "real",
     },
   },
-  // relations: {
-  //   Itens: {
-  //     type: "many-to-one",
-  //     target: "Itens",
-  //     inverseSide: "ItensPedidos",
-  //   },
-  //   Pedidos: {
-  //     type: "many-to-one",
-  //     target: "Pedidos",
-  //     inverseSide: "ItensPedidos",
-  //   },
-  // },
-
+  relations: {
+    itens: {
+      type: "many-to-one",
+      target: "itens",
+      inverseSide: "itensPedidos",
+    },
+    pedidos: {
+      type: "many-to-one",
+      target: "pedidos",
+      inverseSide: "itensPedidos",
+    },
+  },
 });
