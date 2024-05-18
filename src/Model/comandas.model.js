@@ -1,4 +1,4 @@
-import { EntitySchema } from "typeorm";
+import { EntitySchema, JoinColumn } from "typeorm";
 
 export const Comandas = new EntitySchema({
   name: "comandas",
@@ -14,6 +14,7 @@ export const Comandas = new EntitySchema({
       default: 0,
     },
     idMesa: {
+      name: "mesasId",
       type: "int",
     },
     abertura: {
@@ -24,11 +25,16 @@ export const Comandas = new EntitySchema({
       default: 1,
     },
   },
-//   relations: {
-//   Mesas: {
-//     type: "many-to-one",
-//     target: "Comandas",
-//     inverseSide: "comandas",
-//   }, 
-// },
+  relations: {
+  mesas: {
+    type: "many-to-one",
+    target: "mesas",
+    inverseSide:"comandas",
+  }, 
+  pedidos: {
+    type: "one-to-many",
+    target: "pedidos",
+    inverseSide: "comandas",
+  }
+},
 });

@@ -6,6 +6,7 @@ import { ItensPedidos } from "./Model/itensPedidos.model.js";
 import { Pedidos } from "./Model/pedidos.model.js";
 import { Usuarios } from "./Model/usuarios.model.js";
 import { Comandas } from "./Model/comandas.model.js";
+import { Cozinhas } from "./Model/cozinha.model.js";
 
 export const dataBase = new DataSource({
   type: "sqlite",
@@ -18,6 +19,7 @@ export const dataBase = new DataSource({
     Pedidos,
     Usuarios,
     Comandas,
+    Cozinhas,
   ],
   logging: true,
   synchronize: true,
