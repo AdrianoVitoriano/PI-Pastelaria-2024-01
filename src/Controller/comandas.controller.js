@@ -1,4 +1,6 @@
 import { Comandas } from "../Model/comandas.model.js";
+import { validationResult } from 'express-validator';
+
 import {
   insert,
   updateById,
@@ -10,18 +12,43 @@ import {
 
 class ComandasController {
   static async getAllComandas(req, res) {
+
     res.json(await getAll(Comandas));
   }
   static async getComandaById(req, res) {
-    res.json(await getById(req.body, Comandas));
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() })
+    }
+
+    res.json(await getById(req.params, Comandas));
   }
   static async postComanda(req, res) {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() })
+    }
+
     res.json(await conferirComandaExecutar(req, insert));
   }
   static async putComanda(req, res) {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() })
+    }
+
+    req.body.id = req.params.id
+
     res.json(await conferirComandaExecutar(req, updateById));
   }
   static async deleteComanda(req, res) {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() })
+    }
+
+    req.body.id = req.params.id
+
     res.json(await conferirComandaExecutar(req, deleteById));
   }
 }

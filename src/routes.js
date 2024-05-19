@@ -1,4 +1,11 @@
 import { Router } from "express";
+import { idComandasValidator, updateComandasValidator, createComandasValidator } from './validator/comandas.validator.js';
+import { idItensValidator, updateItensValidator, createItensValidator } from './validator/itens.validator.js';
+import { idItensPedidosValidator } from './validator/itensPedidos.validator.js';
+import { idMesasValidator, updateMesasValidator, createMesasValidator } from './validator/mesas.validator.js';
+import { idPedidosValidator, updatePedidosValidator, createPedidosValidator } from './validator/pedidos.validator.js';
+import { idTipoItensValidator, updateTipoItensValidator, createTipoItensValidator } from './validator/tipoItens.validator.js';
+import { idUsuariosValidator, updateUsuariosValidator, createUsuariosValidator } from './validator/usuarios.validator.js';
 import RelatoriosController from "./Controller/relatorio.controller.js";
 import UsuarioController from "./Controller/usuarios.controller.js";
 import PedidosController from "./Controller/pedidos.controller.js";
@@ -16,55 +23,59 @@ router.get("/sayhi", (req, res) => {
 // Rotas da tabela tipoitens
 
 router.get("/tipoitens", TipoItensController.getAllTipoItens); // Rota que retorna todas as categorias.
-router.post("/tipoitens", TipoItensController.postTipoItens); // Rota que insere uma categoria no banco de dados.
-router.put("/tipoitens", TipoItensController.putTipoItens); // Rota que atualiza a categoria no banco pelo id.
-router.delete("/tipoitens", TipoItensController.deleteTipoItens); // Rota que deleta a categoria do banco pelo id.
-router.get("/tipoitens/:id", TipoItensController.getTipoItensById); //  Rota que retorna uma categoria pelo id.
+router.post("/tipoitens", createTipoItensValidator, TipoItensController.postTipoItens); // Rota que insere uma categoria no banco de dados.
+router.put("/tipoitens/:id", [idTipoItensValidator, updateTipoItensValidator], TipoItensController.putTipoItens); // Rota que atualiza a categoria no banco pelo id.
+router.delete("/tipoitens/:id", idTipoItensValidator, TipoItensController.deleteTipoItens); // Rota que deleta a categoria do banco pelo id.
+router.get("/tipoitens/:id", idTipoItensValidator, TipoItensController.getTipoItensById); //  Rota que retorna uma categoria pelo id.
 
 // Rotas da tabela itens
 
 router.get("/itens", ItensController.getAllItens); // Rota que retorna todos os itens.
-router.post("/itens", ItensController.postItem); // Rota que insere um item no banco de dados.
-router.put("/itens", ItensController.putItem); // Rota que atualiza o item no banco pelo id.
-router.delete("/itens", ItensController.deleteItem); // Rota que deleta o item do banco pelo id.
-router.get("/itens/:id", ItensController.getItemById); //  Rota que retorna um item pelo id.
+router.post("/itens", createItensValidator, ItensController.postItem); // Rota que insere um item no banco de dados.
+router.put("/itens/:id", [idItensValidator, updateItensValidator], ItensController.putItem); // Rota que atualiza o item no banco pelo id.
+router.delete("/itens/:id", idItensValidator, ItensController.deleteItem); // Rota que deleta o item do banco pelo id.
+router.get("/itens/:id", idItensValidator, ItensController.getItemById); //  Rota que retorna um item pelo id.
 
 // Rotas da tabela pedidos
 
 router.get("/pedidos", PedidosController.getAllPedidos); // Rota que retorna todas os pedidos.
-router.post("/pedidos", PedidosController.postPedido); // Rota que insere um pedidos no banco de dados.
-router.put("/pedidos", PedidosController.putPedido); // Rota que atualiza o pedidos no banco pelo id.
-router.delete("/pedidos", PedidosController.deletePedido); // Rota que deleta o pedidos do banco pelo id.
-router.get("/pedidos/:id", PedidosController.getPedidoById); //  Rota que retorna um pedidos pelo id.
+router.post("/pedidos", createPedidosValidator, PedidosController.postPedido); // Rota que insere um pedidos no banco de dados.
+router.put("/pedidos/:id", [idPedidosValidator, updatePedidosValidator], PedidosController.putPedido); // Rota que atualiza o pedidos no banco pelo id.
+router.delete("/pedidos/:id", idPedidosValidator, PedidosController.deletePedido); // Rota que deleta o pedidos do banco pelo id.
+router.get("/pedidos/:id", idPedidosValidator, PedidosController.getPedidoById); //  Rota que retorna um pedidos pelo id.
 
 // Rotas da tabela usuarios
 
 router.get("/usuarios", UsuarioController.getAllUsuarios); // Rota que retorna todas os usuarios.
-router.post("/usuarios", UsuarioController.postUsuario); // Rota que insere um usuarios no banco de dados.
-router.put("/usuarios", UsuarioController.putUsuario); // Rota que atualiza o usuarios no banco pelo id.
-router.delete("/usuarios", UsuarioController.deleteUsuario); // Rota que deleta o usuarios do banco pelo id.
-router.get("/usuarios/:id", UsuarioController.getUsuarioById); //  Rota que retorna o usuarios pelo id.
+router.post("/usuarios", createUsuariosValidator, UsuarioController.postUsuario); // Rota que insere um usuarios no banco de dados.
+router.put("/usuarios/:id", [idUsuariosValidator, updateUsuariosValidator], UsuarioController.putUsuario); // Rota que atualiza o usuarios no banco pelo id.
+router.delete("/usuarios/:id", idUsuariosValidator, UsuarioController.deleteUsuario); // Rota que deleta o usuarios do banco pelo id.
+router.get("/usuarios/:id", idUsuariosValidator, UsuarioController.getUsuarioById); //  Rota que retorna o usuarios pelo id.
 
 // Rotas da tabela mesas
 
 router.get("/mesas", MesasController.getAllMesas); // Rota que retorna todas as mesas.
-router.post("/mesas", MesasController.postMesa); // Rota que insere uma mesa no banco de dados.
-router.put("/mesas", MesasController.putMesa); // Rota que atualiza a mesa no banco pelo id.
-router.delete("/mesas", MesasController.deleteMesa); // Rota que deleta a mesa do banco pelo id.
-router.get("/mesas/:id", MesasController.getMesaById); //  Rota que retorna uma mesa pelo id.
+router.post("/mesas", createMesasValidator, MesasController.postMesa); // Rota que insere uma mesa no banco de dados.
+router.put("/mesas/:id", [idMesasValidator, updateMesasValidator], MesasController.putMesa); // Rota que atualiza a mesa no banco pelo id.
+router.delete("/mesas/:id", idMesasValidator, MesasController.deleteMesa); // Rota que deleta a mesa do banco pelo id.
+router.get("/mesas/:id", idMesasValidator, MesasController.getMesaById); //  Rota que retorna uma mesa pelo id.
 
 // Rotas da tabela comandas
 
 router.get("/comandas", ComandasController.getAllComandas); // Rota que retorna todas as comandas.
-router.post("/comandas", ComandasController.postComanda); // Rota que insere uma comanda no banco de dados.
-router.put("/comandas", ComandasController.putComanda); // Rota que atualiza a comanda no banco pelo id.
-router.delete("/comandas", ComandasController.deleteComanda); // Rota que deleta a comanda do banco pelo id.
-router.get("/comandas/:id", ComandasController.getComandaById); //  Rota que retorna uma comanda pelo id.
+router.post("/comandas", createComandasValidator, ComandasController.postComanda); // Rota que insere uma comanda no banco de dados.
+router.put("/comandas/:id", [idComandasValidator, updateComandasValidator], ComandasController.putComanda); // Rota que atualiza a comanda no banco pelo id.
+router.delete("/comandas/:id", idComandasValidator, ComandasController.deleteComanda); // Rota que deleta a comanda do banco pelo id.
+router.get("/comandas/:id", idComandasValidator, ComandasController.getComandaById); //  Rota que retorna uma comanda pelo id.
 
 // Rotas da tabela itensPedidos
 
 router.get("/itenspedidos", ItensPedidosController.getAllItensPedidos); // Rota que retorna todas as comandas.
-router.get("/itenspedidos/:id", ItensPedidosController.getItensPedidosById); //  Rota que retorna uma comanda pelo id.
+router.get("/itenspedidos/:id", idItensPedidosValidator, ItensPedidosController.getItensPedidosById); //  Rota que retorna uma comanda pelo id.
+
+router.get("/cozinha", ItensPedidosController.getAllItensPedidos); // Rota que retorna todas as comandas.
+router.get("/itenspedidos/:id", idItensPedidosValidator, ItensPedidosController.getItensPedidosById); //  Rota que retorna uma comanda pelo id.
 
 router.get("/relatorio/totalUsuario", RelatoriosController.totalUsuario);
 router.get("/relatorio/totalMesa", RelatoriosController.totalMesa);
+router.get("/relatorio/cozinha", RelatoriosController.Cozinha);

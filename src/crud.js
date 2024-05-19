@@ -10,11 +10,11 @@ const err400 = {
 export async function getAll(table) {
   return await dataBase.getRepository(table.options.name).find();
 }
-export async function getById(body, table) {
-  if (existeId(body.id)) {
+export async function getById(req, table) {
+  if (existeId(req.id)) {
     const res = await dataBase
       .getRepository(table.options.name)
-      .find({ where: { id: body.id } })
+      .find({ where: { id: req.id } })
       .catch((err) => {
         return err;
       });
@@ -52,16 +52,16 @@ export async function insert(body, table) {
   return { result: true, id: res.id };
 }
 
-export async function updateById(body, table) {
-  if (existeId(body.id)) {
+export async function updateById(req, table) {
+  if (existeId(req.id)) {
     try {
       await dataBase
         .getRepository(table.options.name)
-        .update(body.id, body)
+        .update(req.id, req.abertabody)
         .catch((err) => {
           return err;
         });
-      return { result: true, id: body.id };
+      return { result: true, id: req.id };
     } catch (err) {
       return err;
     }
@@ -70,16 +70,16 @@ export async function updateById(body, table) {
   }
 }
 
-export async function deleteById(body, table) {
-  if (existeId(body.id)) {
+export async function deleteById(req, table) {
+  if (existeId(req.id)) {
     try {
       await dataBase
         .getRepository(table.options.name)
-        .delete(body.id)
+        .delete(req.id)
         .catch((err) => {
           return err;
         });
-      return { result: true, id: body.id };
+      return { result: true, id: req.id };
     } catch (err) {
       return err;
     }
@@ -88,12 +88,12 @@ export async function deleteById(body, table) {
   }
 }
 
-export async function conferirComanda(body, table) {
-  if (existeId(body.idMesa)) {
+export async function conferirComanda(req, table) {
+  if (existeId(req.body.idMesa)) {
     try {
       const res = await dataBase
         .getRepository(table.options.name)
-        .find({ where: { idMesa: body.idMesa, aberta: 1 } })
+        .find({ where: { idMesa: req.body.idMesa, aberta: 1 } })
         .catch((err) => {
           return err;
         });
@@ -124,14 +124,15 @@ export async function totalPorUsuario() {
   try {
     const result = await dataBase.query(`
       SELECT 
-      p.Id AS Pedido_Id,
-      u.nome AS Nome_Usuário,
-      SUM(p.total) as Total
+        p.Id AS Pedido_Id,
+        u.nome AS Nome_Usuário,
+        SUM(p.total) as Total
       FROM
-      pedidos p
-      INNER JOIN usuarios u on p.idUsuario = u.id
+        pedidos p
+      INNER JOIN 
+        usuarios u on p.idUsuario = u.id
       GROUP BY
-      u.id
+        u.id
     `);
 
     return result;    
@@ -145,14 +146,46 @@ export async function totalPorMesa() {
   try {
     const query = `
     SELECT
-    m.id AS Nº_Mesa,
-    m.localizacao AS Localização_Mesa,
-    SUM(c.total) as Total
+      m.id AS Nº_Mesa,
+      m.localizacao AS Localização_Mesa,
+      SUM(c.total) as Total
     FROM
-    comandas c
-    INNER JOIN mesas m on c.idMesa = m.id
+      comandas c
+    INNER JOIN 
+      mesas m on c.idMesa = m.id
     GROUP BY
-    m.id
+      m.id
+    `;
+
+    const result = await dataBase.query(query);
+
+    return result;
+  } catch (error) {
+    console.error("Erro ao obter relatório de vendas:", error);
+    return null;
+  }
+}
+
+export async function cozinha() {
+  try {
+    const query = `
+    SELECT
+      ip.pedidosId AS Pedido_ID,
+      ip.quantidade AS Pedido_Quantidade,
+      i.nome as Item,
+      c.mesasId as Nº_Mesa
+    FROM
+      itensPedidos ip
+      INNER JOIN 
+        pedidos p on ip.pedidosId = p.id
+      INNER JOIN 
+        comandas c on p.comandasId = c.id
+      INNER JOIN
+        itens i on ip.itensId = i.id
+    WHERE
+      cozinha = 1
+    GROUP BY
+      ip.Id
     `;
 
     const result = await dataBase.query(query);
