@@ -10,17 +10,23 @@ class ItensPedidosController {
     res.json(await getById(req.body, ItensPedidos));
   }
 }
-export async function inserirItens(itens,idPedido){
-  const itensPreco = await getPrecos(itens.map((item) => item.idItem))
-  let total = 0
+export async function inserirItens(itens, idPedido) {
+  const itensPreco = await getPrecos(
+    itens.map((item) => item.idItem),
+  );
+  let total = 0;
   itens.forEach((objeto) => {
-    objeto.subtotal = objeto.quantidade * itensPreco.find((item) => item.itens_id == objeto.idItem).itens_preco;
+    // Remover o subtotal, que é calculado automaticamente
+    objeto.subtotal =
+      objeto.quantidade *
+      itensPreco.find(
+        (item) => item.itens_id === objeto.idItem,
+      ).itens_preco;
     objeto.idPedido = idPedido;
-    total += objeto.subtotal
+    total += objeto.subtotal; // Correção no operador de atribuição
   });
-  await insert(itens, ItensPedidos)
-  return total
+  await insert(itens, ItensPedidos); // Se insert for assíncrono, está correto
+  return total;
 }
-
 
 export default ItensPedidosController;

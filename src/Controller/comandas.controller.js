@@ -19,17 +19,27 @@ class ComandasController {
     res.json(await conferirComandaExecutar(req, insert));
   }
   static async putComanda(req, res) {
-    res.json(await conferirComandaExecutar(req, updateById));
+    res.json(
+      await conferirComandaExecutar(req, updateById),
+    );
   }
   static async deleteComanda(req, res) {
-    res.json(await conferirComandaExecutar(req, deleteById));
+    res.json(
+      await conferirComandaExecutar(req, deleteById),
+    );
   }
 }
 
-export async function conferirComandaExecutar(req, callback) {
+export async function conferirComandaExecutar(
+  req,
+  callback,
+) {
   let comanda;
   if (typeof req.body.id === "undefined") {
-    comanda = await conferirComanda(req.body, Comandas).catch((err) => {
+    comanda = await conferirComanda(
+      req.body,
+      Comandas,
+    ).catch((err) => {
       return err;
     });
     if (comanda.result === false) {
@@ -38,18 +48,20 @@ export async function conferirComandaExecutar(req, callback) {
       return comanda;
     }
   } else {
-    comanda = await getById(req.body, Comandas).catch((err) => {
-      return err;
-    });
+    comanda = await getById(req.body, Comandas).catch(
+      (err) => {
+        return err;
+      },
+    );
     if (comanda[0].aberta) {
       return await callback(req.body, Comandas);
     } else {
-      return { result: true, aberta: false };
+      return { result: true, aberta: 1 };
     }
   }
 }
-export async function atualizarTotalComanda(id,total){
-  await updateById({id,total},Comandas);
+export async function atualizarTotalComanda(id, total) {
+  await updateById({ id, total }, Comandas);
 }
 
 export default ComandasController;
