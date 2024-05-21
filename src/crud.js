@@ -120,18 +120,19 @@ function existeId(id) {
 } //se o ID estiver vazio, retorna falso, senao, retorna true
 export async function postComanda(req, res) {
   //confirmar se esta função é melhor que a outra
-  const table = "comandas";
-
   try {
     // Busca um registro da tabela pelo ID da mesa e campo "aberta" igual a 1
     const existingComanda = await dataBase
-      .getRepository(table.options.name)
+      .getRepository(comandas.options.name)
       .findOne({ idMesa: req.body.idMesa, aberta: 1 });
 
     if (!existingComanda) {
       // Se não foi encontrado, insere um novo registro com os novos dados
       const newData = { idMesa: req.body.idMesa };
-      const insertedComanda = await insert(newData, table);
+      const insertedComanda = await insert(
+        newData,
+        comandas,
+      );
       // Retorna o ID da comanda inserida
       return res
         .status(200)

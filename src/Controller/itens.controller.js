@@ -1,5 +1,12 @@
 import { Itens } from "../Model/itens.model.js";
-import { insert, updateById, deleteById, getById, getAll,getSomeById } from "../crud.js";
+import {
+  insert,
+  updateById,
+  deleteById,
+  getById,
+  getAll,
+  getSomeById,
+} from "../crud.js";
 
 class ItensController {
   static async getAllItens(req, res) {
@@ -14,12 +21,13 @@ class ItensController {
   static async putItem(req, res) {
     res.json(await updateById(req.body, Itens));
   }
-  static async deleteItem(req, res) {
-    res.json(await deleteById(req.body, Itens));
-  }
+  //apagado a função deleteItem pois não pode ser possivel apagar item
 }
-export async function getPrecos(ids){
-  return await getSomeById(ids,Itens,["itens.id", "itens.preco"])
+export async function getPrecos(ids) {
+  return await getSomeById(ids, Itens, [
+    "itens.id",
+    "itens.preco",
+  ]);
 }
 
 export default ItensController;

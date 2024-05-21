@@ -61,6 +61,8 @@ export async function conferirComandaExecutar(
   }
 }
 export async function atualizarTotalComanda(id, total) {
+  //verificar a necessidade desta função
+  //pois terá um trigger para atualizar o total da comanda
   await updateById({ id, total }, Comandas);
 }
 

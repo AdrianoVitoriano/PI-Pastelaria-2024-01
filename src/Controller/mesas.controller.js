@@ -1,5 +1,11 @@
 import { Mesas } from "../Model/mesas.model.js";
-import { insert, updateById, deleteById, getById, getAll } from "../crud.js";
+import {
+  insert,
+  updateById,
+  deleteById,
+  getById,
+  getAll,
+} from "../crud.js";
 
 class MesasController {
   static async getAllMesas(req, res) {
@@ -14,13 +20,13 @@ class MesasController {
   static async putMesa(req, res) {
     res.json(await updateById(req.body, Mesas));
   }
-  static async deleteMesa(req, res) {
-    res.json(await deleteById(req.body, Mesas));
-  }
+  //apagado a função deleteMesa pois mesas não podem ser excluidas
 }
 
-export async function validarMesa(id){
-  return (await getById({id,}, Mesas)).result  ?true:false
+export async function validarMesa(id) {
+  return (await getById({ id }, Mesas)).result
+    ? true
+    : false;
 }
 
 export default MesasController;
