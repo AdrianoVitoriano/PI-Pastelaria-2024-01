@@ -182,9 +182,28 @@ export async function conferirComanda(body, table) {
 // Função para retornar a data e hora atual
 export function dataHora() {
   const date = new Date();
-  return `${date.getDate()}/${
-    date.getMonth() + 1
-  }/${date.getFullYear()} | ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+  return `${date.getDate()}/${date.getMonth() + 1
+    }/${date.getFullYear()} | ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+}
+// Função para obter o total de vendas somando o total de cada comanda que tenha como idUsuario o ID passado
+export async function totalPorUsuarioKairo(idUsuario) {
+  try {
+    // Executa uma consulta SQL para somar os totais das comandas associadas ao usuário fornecido
+    const result = await dataBase
+      .getRepository('comandas') // Obtem o repositório da tabela 'comandas'
+      .createQueryBuilder('comandas') // Constroi a consulta
+      .select('SUM(comandas.total) AS total') // Seleciona a coluna 'total' da tabela 'comandas'
+      .where('comandas.idUsuario = :idUsuario', { idUsuario }) // Filtra pelo ID do usuário fornecido
+      .getRawOne(); // Executa a consulta
+
+    return result;
+  } catch (error) {
+    console.error(
+      "Erro ao obter relatório de vendas:",
+      error,
+    );
+    return null;
+  }
 }
 
 // Função para obter o total de vendas por usuário
@@ -212,7 +231,27 @@ export async function totalPorUsuario() {
   }
 }
 
-// Função para obter o total de vendas por mesa
+// Função para obter o total de vendas somando o total de cada comanda que tenha como idMesa o ID passado
+export async function totalPorMesaKairo(idMesa) {
+  try {
+    // Executa uma consulta SQL para somar os totais das comandas associadas à mesa fornecida
+    const result = await dataBase
+      .getRepository('comandas') // Obtém o repositório da tabela 'comandas'
+      .createQueryBuilder('comandas') // Cria um construtor de consulta para a tabela 'comandas'
+      .select('SUM(comandas.total)', 'total') // Seleciona a soma dos totais das comandas e nomeia como 'total'
+      .where('comandas.idMesa = :idMesa', { idMesa }) // Filtra pelo idMesa fornecido
+      .getRawOne(); // Executa a consulta e retorna apenas um resultado em formato bruto (não mapeado para objetos)
+
+    // Retorna o resultado da consulta, que é a soma dos totais das comandas associadas à mesa fornecida
+    return result.total;
+  } catch (error) {
+    // Em caso de erro, imprime o erro no console
+    console.error('Erro ao obter o total de vendas por mesa:', error);
+    // Retorna null para indicar que houve um erro ao processar a consulta
+    return null;
+  }
+}
+
 export async function totalPorMesa() {
   try {
     const query = `

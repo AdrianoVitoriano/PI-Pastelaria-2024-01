@@ -18,16 +18,46 @@ class ComandasController {
   static async postComanda(req, res) {
     res.json(await conferirComandaExecutar(req, insert));
   }
+  static async postComanda_kairo(req, res) {
+
+
+    try {
+      // Busca um registro da tabela pelo ID da mesa e campo "aberta" igual a 1
+      const existingComanda = await dataBase
+        .getRepository(comandas.options.name)
+        .findOne({ idMesa: req.body.idMesa, aberta: 1 });
+
+      if (!existingComanda) {
+        // Se não foi encontrado, insere um novo registro com os novos dados
+        const newData = { idMesa: req.body.idMesa };
+        const insertedComanda = await insert(
+          newData,
+          comandas,
+        );
+        // Retorna o ID da comanda inserida
+        return res
+          .status(200)
+          .json({ id: insertedComanda.id });
+      }
+
+      // Se a comanda já existe, retorna o ID da comanda existente
+      return res
+        .status(200)
+        .json({ id: existingComanda.id });
+    } catch (error) {
+      console.error(error);
+      // Trata o erro apropriadamente
+      return res
+        .status(500)
+        .json({ msg: "Erro ao processar a requisição" });
+    }
+  }
   static async putComanda(req, res) {
     res.json(
       await conferirComandaExecutar(req, updateById),
     );
   }
-  static async deleteComanda(req, res) {
-    res.json(
-      await conferirComandaExecutar(req, deleteById),
-    );
-  }
+  //função delete não será necessária
 }
 
 export async function conferirComandaExecutar(
