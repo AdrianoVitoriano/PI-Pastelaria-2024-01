@@ -5,7 +5,6 @@ export const idItensValidator = [
 ]
 
 export const createItensValidator = [
-    body('id').isInt().withMessage("id inválido"),
     body('nome').isString().withMessage("Nome inválido"),
     body('preco').isFloat().withMessage("Preco inválido"),
     body('idTipo').isInt().withMessage("idTipo inválido"),

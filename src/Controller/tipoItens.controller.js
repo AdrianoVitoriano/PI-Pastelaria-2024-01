@@ -11,8 +11,9 @@ class TipoItensController {
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() })
     }
-
-    res.json(await getById(req.body, TipoItens));
+  
+    res.json(await getById(req.params, TipoItens)); // res.json(await getById(req.body, TipoItens));
+  
   }
   static async postTipoItens(req, res) {
     const errors = validationResult(req)
@@ -27,6 +28,8 @@ class TipoItensController {
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() })
     }
+    
+    req.body.id = req.params.id
 
     res.json(await updateById(req.body, TipoItens));
   }
@@ -35,6 +38,8 @@ class TipoItensController {
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() })
     }
+
+    req.body.id = req.params.id
 
     res.json(await deleteById(req.body, TipoItens));
   }

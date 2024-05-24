@@ -28,6 +28,8 @@ class ItensController {
       return res.status(400).json({ errors: errors.array() })
     }
 
+    req.body.id = req.params.id
+
     res.json(await updateById(req.body, Itens));
   }
   static async deleteItem(req, res) {
@@ -35,6 +37,8 @@ class ItensController {
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() })
     }
+
+    req.body.id = req.params.id
 
     res.json(await deleteById(req.body, Itens));
   }

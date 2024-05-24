@@ -11,8 +11,8 @@ class UsuarioController {
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() })
     }
-
-    res.json(await getById(req.body, Usuarios));
+  
+    res.json(await getById(req.params, TipoItens));
   }
   static async postUsuario(req, res) {
     const errors = validationResult(req)
@@ -28,6 +28,8 @@ class UsuarioController {
       return res.status(400).json({ errors: errors.array() })
     }
 
+    req.body.id = req.params.id
+
     res.json(await updateById(req.body, Usuarios));
   }
   static async deleteUsuario(req, res) {
@@ -35,6 +37,8 @@ class UsuarioController {
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() })
     }
+
+    req.body.id = req.params.id
 
     res.json(await deleteById(req.body, Usuarios));
   }

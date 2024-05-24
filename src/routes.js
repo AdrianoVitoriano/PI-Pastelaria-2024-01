@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { idComandasValidator, updateComandasValidator, createComandasValidator } from './validator/comandas.validator.js';
+import { idComandasValidator, updateComandasValidator } from './validator/comandas.validator.js';
 import { idItensValidator, updateItensValidator, createItensValidator } from './validator/itens.validator.js';
 import { idItensPedidosValidator } from './validator/itensPedidos.validator.js';
 import { idMesasValidator, updateMesasValidator, createMesasValidator } from './validator/mesas.validator.js';
@@ -63,7 +63,6 @@ router.get("/mesas/:id", idMesasValidator, MesasController.getMesaById); //  Rot
 // Rotas da tabela comandas
 
 router.get("/comandas", ComandasController.getAllComandas); // Rota que retorna todas as comandas.
-router.post("/comandas", createComandasValidator, ComandasController.postComanda); // Rota que insere uma comanda no banco de dados.
 router.put("/comandas/:id", [idComandasValidator, updateComandasValidator], ComandasController.putComanda); // Rota que atualiza a comanda no banco pelo id.
 router.delete("/comandas/:id", idComandasValidator, ComandasController.deleteComanda); // Rota que deleta a comanda do banco pelo id.
 router.get("/comandas/:id", idComandasValidator, ComandasController.getComandaById); //  Rota que retorna uma comanda pelo id.
@@ -73,9 +72,9 @@ router.get("/comandas/:id", idComandasValidator, ComandasController.getComandaBy
 router.get("/itenspedidos", ItensPedidosController.getAllItensPedidos); // Rota que retorna todas as comandas.
 router.get("/itenspedidos/:id", idItensPedidosValidator, ItensPedidosController.getItensPedidosById); //  Rota que retorna uma comanda pelo id.
 
-router.get("/cozinha", ItensPedidosController.getAllItensPedidos); // Rota que retorna todas as comandas.
-router.get("/itenspedidos/:id", idItensPedidosValidator, ItensPedidosController.getItensPedidosById); //  Rota que retorna uma comanda pelo id.
+//router.get("/cozinha", cozinhasController.getAllCozinhas); // Rota que retorna todos os itens da cozinha.
+//router.get("/cozinha/:id", cozinhasController.getCozinhasById); // Rota que retorna os itens da cozinha pelo id.
 
 router.get("/relatorio/totalUsuario", RelatoriosController.totalUsuario);
 router.get("/relatorio/totalMesa", RelatoriosController.totalMesa);
-router.get("/relatorio/cozinha", RelatoriosController.Cozinha);
+//router.get("/relatorio/cozinha", RelatoriosController.Cozinha); EXCLUIDO

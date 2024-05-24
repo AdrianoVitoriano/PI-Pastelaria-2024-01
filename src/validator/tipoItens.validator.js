@@ -5,10 +5,9 @@ export const idTipoItensValidator = [
 ]
 
 export const createTipoItensValidator = [
-    body('id').isInt().withMessage("id inválido"),
-    body('nome').isInt().withMessage("nome inválido"),
+    body('nome').isString().withMessage("nome inválido"),
 ]
 
 export const updateTipoItensValidator = [
-    body('nome').optional().isInt().withMessage("nome inválido"),
+    body('nome').optional().isString().withMessage("nome inválido"),
 ]

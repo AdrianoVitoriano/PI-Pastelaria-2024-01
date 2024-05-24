@@ -5,7 +5,6 @@ export const idMesasValidator = [
 ]
 
 export const createMesasValidator = [
-  body('id').isInt().withMessage("id inválido"),
   body('localizacao').isString().withMessage("Localizacao inválida"),
 ]
 

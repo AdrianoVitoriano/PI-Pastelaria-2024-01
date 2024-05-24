@@ -37,10 +37,10 @@ class MesasController {
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() })
     }
-    
+
     req.body.id = req.params.id
 
-    res.json(await deleteById(req.params, Mesas));
+    res.json(await deleteById(req.body, Mesas));
   }
 }
 

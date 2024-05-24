@@ -5,18 +5,17 @@ export const idUsuariosValidator = [
 ]
 
 export const createUsuariosValidator = [
-    body('id').isInt().withMessage("id inválido"),
-    body('nome').isInt().withMessage("nome inválido"),
+    body('nome').isString().withMessage("nome inválido"),
     body('cargo').isInt().withMessage("cargo inválido"),
-    body('email').isInt().withMessage("email inválido"),
+    body('email').isEmail().withMessage("email inválido"),
     body('cpf').isInt().withMessage("cpf inválido"),
-    body('senha').isInt().withMessage("senha inválido"),
+    body('senha').isString().withMessage("senha inválido"),
 ]
 
 export const updateUsuariosValidator = [
-    body('nome').optional().isInt().withMessage("nome inválido"),
-    body('cargo').optional().isInt().withMessage("cargo inválido"),
-    body('email').optional().isInt().withMessage("email inválido"),
+    body('nome').optional().isString().withMessage("nome inválido"),
+    body('cargo').optional().isString().withMessage("cargo inválido"),
+    body('email').optional().isEmail().withMessage("email inválido"),
     body('cpf').optional().isInt().withMessage("cpf inválido"),
-    body('senha').optional().isInt().withMessage("senha inválido"),
+    body('senha').optional().isString().withMessage("senha inválido"),
 ]

@@ -52,16 +52,16 @@ export async function insert(body, table) {
   return { result: true, id: res.id };
 }
 
-export async function updateById(req, table) {
-  if (existeId(req.id)) {
+export async function updateById(body, table) {
+  if (existeId(body.id)) {
     try {
       await dataBase
         .getRepository(table.options.name)
-        .update(req.id, req.abertabody)
+        .update(body.id, body)
         .catch((err) => {
           return err;
         });
-      return { result: true, id: req.id };
+      return { result: true, id: body.id };
     } catch (err) {
       return err;
     }
@@ -70,16 +70,16 @@ export async function updateById(req, table) {
   }
 }
 
-export async function deleteById(req, table) {
-  if (existeId(req.id)) {
+export async function deleteById(body, table) {
+  if (existeId(body.id)) {
     try {
       await dataBase
         .getRepository(table.options.name)
-        .delete(req.id)
+        .delete(body.id)
         .catch((err) => {
           return err;
         });
-      return { result: true, id: req.id };
+      return { result: true, id: body.id };
     } catch (err) {
       return err;
     }
@@ -88,12 +88,12 @@ export async function deleteById(req, table) {
   }
 }
 
-export async function conferirComanda(req, table) {
-  if (existeId(req.body.idMesa)) {
+export async function conferirComanda(body, table) {
+  if (existeId(body.idMesa)) {
     try {
       const res = await dataBase
         .getRepository(table.options.name)
-        .find({ where: { idMesa: req.body.idMesa, aberta: 1 } })
+        .find({ where: { idMesa: body.idMesa, aberta: 1 } })
         .catch((err) => {
           return err;
         });
@@ -109,6 +109,7 @@ export async function conferirComanda(req, table) {
     return err400;
   }
 }
+
 export function dataHora() {
   const date = new Date();
   return `${date.getDate()}/${

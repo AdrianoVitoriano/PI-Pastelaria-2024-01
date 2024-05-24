@@ -23,14 +23,6 @@ class ComandasController {
 
     res.json(await getById(req.params, Comandas));
   }
-  static async postComanda(req, res) {
-    const errors = validationResult(req)
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() })
-    }
-
-    res.json(await conferirComandaExecutar(req, insert));
-  }
   static async putComanda(req, res) {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {

@@ -49,15 +49,20 @@ class PedidosController {
       return res.status(400).json({ errors: errors.array() })
     }
 
-    res.json(await updateById(req.body, Pedidos));
+    req.body.id = req.params.id
+    
+    res.json(await updateById(req.params.id, Pedidos));
   }
+
   static async deletePedido(req, res) {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() })
     }
 
-    res.json(await deleteById(req.params, Pedidos));
+    req.body.id = req.params.id
+
+    res.json(await deleteById(req.params.id, Pedidos));
   }
 }
 
@@ -65,9 +70,6 @@ async function atualizarTotalPedido(id, total) {
   await updateById({ id, total }, Pedidos);
 }
 async function validarRequisição(body) {
-  console.log(await validarMesa(body.idMesa))
-  console.log(await validarUsuario(body.idUsuario))
-  console.log(body.itens)
   return (await validarMesa(body.idMesa) && await validarUsuario(body.idUsuario) && ((body.itens)?((body.itens[0])?true:false):false))?{result:true}:{result:false}
 }
 
