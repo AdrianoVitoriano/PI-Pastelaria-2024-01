@@ -73,12 +73,17 @@ export async function updateById(body, table) {
 export async function deleteById(body, table) {
   if (existeId(body.id)) {
     try {
+
+      await dataBase.query(`PRAGMA foreign_keys = OFF`);
+
       await dataBase
         .getRepository(table.options.name)
         .delete(body.id)
         .catch((err) => {
           return err;
         });
+
+      await dataBase.query(`PRAGMA foreign_keys = ON`);
       return { result: true, id: body.id };
     } catch (err) {
       return err;

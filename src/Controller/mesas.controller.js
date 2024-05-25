@@ -28,7 +28,7 @@ class MesasController {
       return res.status(400).json({ errors: errors.array() })
     }
     
-    req.body.id=req.params.id
+    req.body.id=parseInt(req.params.id)
 
     res.json(await updateById(req.body, Mesas));
   }
@@ -38,7 +38,7 @@ class MesasController {
       return res.status(400).json({ errors: errors.array() })
     }
 
-    req.body.id = req.params.id
+    req.body.id = parseInt(req.params.id)
 
     res.json(await deleteById(req.body, Mesas));
   }

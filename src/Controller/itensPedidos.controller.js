@@ -13,7 +13,7 @@ class ItensPedidosController {
       return res.status(400).json({ errors: errors.array() })
     }
 
-    req.body.id = req.params.id
+    req.body.id = parseInt(req.params.id)
     
     res.json(await getById(req.body, ItensPedidos));
   }
