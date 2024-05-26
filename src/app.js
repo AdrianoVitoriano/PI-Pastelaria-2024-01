@@ -1,19 +1,21 @@
-import express from "express"; // Importa o Express
+import express from "express";
 import { router } from "./routes.js";
 import fs from "fs";
 import https from "https";
 import cors from "cors";
 
-const app = express(); // Atribui o express() a constante app
-const port = 3000; // Defini a porta onde a API ficará rodando
-app.use(express.json()); // Permite que a API receba requisições no formato JSON
-app.use(cors()); // reduz erros na consulta
-app.use(router); // Busca as rotas no arquivo routes.js
+const app = express();
+const port_http = 3000;
+const port_https = 3001;
+app.use(express.json());
+app.use(cors());
+app.use(router);
 
-app.listen(port, ()=>{
+app.listen(port_http, () => {
   console.clear();
-  console.log(`API executando na porta ${port}`);
+  console.log(`API executando na porta ${port_http}`);
 });
+
 
 https
   .createServer(
@@ -23,4 +25,6 @@ https
     },
     app
   )
-  .listen(3001, () => console.log("Rodando em https."));
+  .listen(port_https, () => console.log(`API executando na porta ${port_https}`));
+//https://localhost:3001
+//http://localhost:3000

@@ -18,7 +18,7 @@ router.get("/sayhi", (req, res) => {
 router.get("/tipoitens", TipoItensController.getAllTipoItens); // Rota que retorna todas as categorias.
 router.post("/tipoitens", TipoItensController.postTipoItens); // Rota que insere uma categoria no banco de dados.
 router.put("/tipoitens", TipoItensController.putTipoItens); // Rota que atualiza a categoria no banco pelo id.
-router.delete("/tipoitens", TipoItensController.deleteTipoItens); // Rota que deleta a categoria do banco pelo id.
+
 router.get("/tipoitens/:id", TipoItensController.getTipoItensById); //  Rota que retorna uma categoria pelo id.
 
 // Rotas da tabela itens
@@ -26,7 +26,7 @@ router.get("/tipoitens/:id", TipoItensController.getTipoItensById); //  Rota que
 router.get("/itens", ItensController.getAllItens); // Rota que retorna todos os itens.
 router.post("/itens", ItensController.postItem); // Rota que insere um item no banco de dados.
 router.put("/itens", ItensController.putItem); // Rota que atualiza o item no banco pelo id.
-router.delete("/itens", ItensController.deleteItem); // Rota que deleta o item do banco pelo id.
+
 router.get("/itens/:id", ItensController.getItemById); //  Rota que retorna um item pelo id.
 
 // Rotas da tabela pedidos
@@ -50,7 +50,7 @@ router.get("/usuarios/:id", UsuarioController.getUsuarioById); //  Rota que reto
 router.get("/mesas", MesasController.getAllMesas); // Rota que retorna todas as mesas.
 router.post("/mesas", MesasController.postMesa); // Rota que insere uma mesa no banco de dados.
 router.put("/mesas", MesasController.putMesa); // Rota que atualiza a mesa no banco pelo id.
-router.delete("/mesas", MesasController.deleteMesa); // Rota que deleta a mesa do banco pelo id.
+
 router.get("/mesas/:id", MesasController.getMesaById); //  Rota que retorna uma mesa pelo id.
 
 // Rotas da tabela comandas
@@ -58,7 +58,7 @@ router.get("/mesas/:id", MesasController.getMesaById); //  Rota que retorna uma 
 router.get("/comandas", ComandasController.getAllComandas); // Rota que retorna todas as comandas.
 router.post("/comandas", ComandasController.postComanda); // Rota que insere uma comanda no banco de dados.
 router.put("/comandas", ComandasController.putComanda); // Rota que atualiza a comanda no banco pelo id.
-router.delete("/comandas", ComandasController.deleteComanda); // Rota que deleta a comanda do banco pelo id.
+
 router.get("/comandas/:id", ComandasController.getComandaById); //  Rota que retorna uma comanda pelo id.
 
 // Rotas da tabela itensPedidos

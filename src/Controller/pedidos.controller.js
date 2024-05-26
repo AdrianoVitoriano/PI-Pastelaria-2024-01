@@ -23,6 +23,14 @@ class PedidosController {
   static async getPedidoById(req, res) {
     res.json(await getById(req.body, Pedidos));
   }
+  /**etapas do post pedido
+   * receber o corpo da requisição contendo
+   * idMesa idUsuario, horario
+   * em seguida terá que receber o id da comanda poe meio do post comanda, que irá verificar se a mesa ja está aberta
+   * em seguida irá inserir o pedido na tabela de pedidos
+   * logo após irá chamar a função postitenspedido, repassando o id do pedido e o corpo da requisição que contem o item a quantidade
+   * em seguida irá receber o total do pedido e adicionar ao subtotal do pedido
+   */
   static async postPedido(req, res) {
     // Copia o corpo da requisição para a variável 'body'
     let body = req.body;

@@ -186,7 +186,7 @@ export function dataHora() {
     }/${date.getFullYear()} | ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 }
 // Função para obter o total de vendas somando o total de cada comanda que tenha como idUsuario o ID passado
-export async function totalPorUsuarioKairo(idUsuario) {
+export async function totalPorUsuario_kairo(idUsuario) {
   try {
     // Executa uma consulta SQL para somar os totais das comandas associadas ao usuário fornecido
     const result = await dataBase
@@ -232,25 +232,27 @@ export async function totalPorUsuario() {
 }
 
 // Função para obter o total de vendas somando o total de cada comanda que tenha como idMesa o ID passado
-export async function totalPorMesaKairo(idMesa) {
+export async function totalPorMesa_kairo() {
   try {
-    // Executa uma consulta SQL para somar os totais das comandas associadas à mesa fornecida
+    // Executa uma consulta utilizando o TypeORM para calcular o total de vendas por mesa
     const result = await dataBase
       .getRepository('comandas') // Obtém o repositório da tabela 'comandas'
       .createQueryBuilder('comandas') // Cria um construtor de consulta para a tabela 'comandas'
-      .select('SUM(comandas.total)', 'total') // Seleciona a soma dos totais das comandas e nomeia como 'total'
-      .where('comandas.idMesa = :idMesa', { idMesa }) // Filtra pelo idMesa fornecido
-      .getRawOne(); // Executa a consulta e retorna apenas um resultado em formato bruto (não mapeado para objetos)
+      .leftJoinAndSelect('comandas.mesa', 'mesa') // Realiza um LEFT JOIN com a tabela 'mesas'
+      .select(['mesa.id', 'SUM(comandas.total)', 'total']) // Seleciona o id da mesa, a localização, e a soma dos totais das comandas
+      .groupBy('mesa.id') // Agrupa os resultados pelo id da mesa
+      .getRawMany(); // Executa a consulta e retorna os resultados em formato bruto (não mapeado para objetos)
 
-    // Retorna o resultado da consulta, que é a soma dos totais das comandas associadas à mesa fornecida
-    return result.total;
+    // Retorna o resultado da consulta
+    return result;
   } catch (error) {
     // Em caso de erro, imprime o erro no console
-    console.error('Erro ao obter o total de vendas por mesa:', error);
+    console.error('Erro ao obter relatório de vendas:', error);
     // Retorna null para indicar que houve um erro ao processar a consulta
     return null;
   }
 }
+
 
 export async function totalPorMesa() {
   try {
