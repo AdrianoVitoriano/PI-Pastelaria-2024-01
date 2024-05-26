@@ -10,11 +10,11 @@ const err400 = {
 export async function getAll(table) {
   return await dataBase.getRepository(table.options.name).find();
 }
-export async function getById(body, table) {
-  if (existeId(body.id)) {
+export async function getById(req, table) {
+  if (existeId(req.id)) {
     const res = await dataBase
       .getRepository(table.options.name)
-      .find({ where: { id: body.id } })
+      .find({ where: { id: req.id } })
       .catch((err) => {
         return err;
       });
@@ -73,12 +73,17 @@ export async function updateById(body, table) {
 export async function deleteById(body, table) {
   if (existeId(body.id)) {
     try {
+
+      await dataBase.query(`PRAGMA foreign_keys = OFF`);
+
       await dataBase
         .getRepository(table.options.name)
         .delete(body.id)
         .catch((err) => {
           return err;
         });
+
+      await dataBase.query(`PRAGMA foreign_keys = ON`);
       return { result: true, id: body.id };
     } catch (err) {
       return err;
@@ -109,6 +114,7 @@ export async function conferirComanda(body, table) {
     return err400;
   }
 }
+
 export function dataHora() {
   const date = new Date();
   return `${date.getDate()}/${
@@ -124,14 +130,15 @@ export async function totalPorUsuario() {
   try {
     const result = await dataBase.query(`
       SELECT 
-      p.Id AS Pedido_Id,
-      u.nome AS Nome_Usuário,
-      SUM(p.total) as Total
+        p.Id AS Pedido_Id,
+        u.nome AS Nome_Usuário,
+        SUM(p.total) as Total
       FROM
-      pedidos p
-      INNER JOIN usuarios u on p.idUsuario = u.id
+        pedidos p
+      INNER JOIN 
+        usuarios u on p.idUsuario = u.id
       GROUP BY
-      u.id
+        u.id
     `);
 
     return result;    
@@ -145,14 +152,15 @@ export async function totalPorMesa() {
   try {
     const query = `
     SELECT
-    m.id AS Nº_Mesa,
-    m.localizacao AS Localização_Mesa,
-    SUM(c.total) as Total
+      m.id AS Nº_Mesa,
+      m.localizacao AS Localização_Mesa,
+      SUM(c.total) as Total
     FROM
-    comandas c
-    INNER JOIN mesas m on c.idMesa = m.id
+      comandas c
+    INNER JOIN 
+      mesas m on c.idMesa = m.id
     GROUP BY
-    m.id
+      m.id
     `;
 
     const result = await dataBase.query(query);

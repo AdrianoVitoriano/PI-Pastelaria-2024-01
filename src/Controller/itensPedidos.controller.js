@@ -1,12 +1,20 @@
 import { ItensPedidos } from "../Model/itensPedidos.model.js";
 import { getById, getAll, insert } from "../crud.js";
 import { getPrecos } from "./itens.controller.js";
+import { validationResult } from 'express-validator';
 
 class ItensPedidosController {
   static async getAllItensPedidos(req, res) {
     res.json(await getAll(ItensPedidos));
   }
   static async getItensPedidosById(req, res) {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() })
+    }
+
+    req.body.id = parseInt(req.params.id)
+    
     res.json(await getById(req.body, ItensPedidos));
   }
 }
