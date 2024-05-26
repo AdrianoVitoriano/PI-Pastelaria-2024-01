@@ -51,7 +51,7 @@ class PedidosController {
 
     req.body.id = parseInt(req.params.id)
     
-    res.json(await updateById(req.params.id, Pedidos));
+    res.json(await updateById(req.body, Pedidos));
   }
 
   static async deletePedido(req, res) {
@@ -62,7 +62,7 @@ class PedidosController {
 
     req.body.id = parseInt(req.params.id)
 
-    res.json(await deleteById(req.params.id, Pedidos));
+    res.json(await deleteById(req.body, Pedidos));
   }
 }
 

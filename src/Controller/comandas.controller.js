@@ -2,9 +2,7 @@ import { Comandas } from "../Model/comandas.model.js";
 import { validationResult } from 'express-validator';
 
 import {
-  insert,
   updateById,
-  deleteById,
   getById,
   getAll,
   conferirComanda,
@@ -32,16 +30,6 @@ class ComandasController {
     req.body.id = parseInt(req.params.id)
 
     res.json(await conferirComandaExecutar(req, updateById));
-  }
-  static async deleteComanda(req, res) {
-    const errors = validationResult(req)
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() })
-    }
-
-    req.body.id = parseInt(req.params.id)
-
-    res.json(await conferirComandaExecutar(req, deleteById));
   }
 }
 

@@ -171,34 +171,3 @@ export async function totalPorMesa() {
     return null;
   }
 }
-
-export async function cozinha() {
-  try {
-    const query = `
-    SELECT
-      ip.pedidosId AS Pedido_ID,
-      ip.quantidade AS Pedido_Quantidade,
-      i.nome as Item,
-      c.mesasId as Nº_Mesa
-    FROM
-      itensPedidos ip
-      INNER JOIN 
-        pedidos p on ip.pedidosId = p.id
-      INNER JOIN 
-        comandas c on p.comandasId = c.id
-      INNER JOIN
-        itens i on ip.itensId = i.id
-    WHERE
-      cozinha = 1
-    GROUP BY
-      ip.Id
-    `;
-
-    const result = await dataBase.query(query);
-
-    return result;
-  } catch (error) {
-    console.error("Erro ao obter relatório de vendas:", error);
-    return null;
-  }
-}

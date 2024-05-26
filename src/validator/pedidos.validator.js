@@ -5,9 +5,9 @@ export const idPedidosValidator = [
 ]
 
 export const createPedidosValidator = [
+    body('idMesa').isInt().withMessage("idMesa inválido"),
     body('idUsuario').isInt().withMessage("idUsuario inválido"),
-    body('idComanda').isInt().withMessage("idComanda inválido"),
-    body('finalizado').isInt().withMessage("finalizado inválido"),
+    body('itens').isArray().withMessage("itens inválido"),
 ]
 
 export const updatePedidosValidator = [

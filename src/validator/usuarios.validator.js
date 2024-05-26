@@ -14,7 +14,7 @@ export const createUsuariosValidator = [
 
 export const updateUsuariosValidator = [
     body('nome').optional().isString().withMessage("nome inválido"),
-    body('cargo').optional().isString().withMessage("cargo inválido"),
+    body('cargo').optional().isInt().withMessage("cargo inválido"),
     body('email').optional().isEmail().withMessage("email inválido"),
     body('cpf').optional().isInt().withMessage("cpf inválido"),
     body('senha').optional().isString().withMessage("senha inválido"),
