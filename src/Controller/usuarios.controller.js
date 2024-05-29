@@ -40,7 +40,6 @@ class UsuarioController {
 
 		req.body.id = parseInt(req.params.id);
     req.body.ativo = 0;
-    console.log("aqui")
 		res.json(await updateById(req.body, Usuarios, { ativo: 1 }));
   }
 }

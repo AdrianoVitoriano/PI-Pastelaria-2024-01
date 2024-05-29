@@ -65,12 +65,13 @@ class PedidosController {
 		}
 		req.body.id = parseInt(req.params.id);
 		let pedido = await getById(req.body, Pedidos);
-		let comanda = await getById({ id: pedido[0].idComanda },Comandas); // Tem que arrumar essa linhas, não pode ter outro model dentro do controller de outro model
-		if (comanda.result) {
-			await atualizarTotalComanda(comanda[0].id,comanda[0].total - pedido[0].total );
+		let comanda = await conferirComandaExecutar({body:{ id: pedido[0].idComanda }});
+		if (comanda.aberta) {
+			comanda = comanda.comanda
+			await atualizarTotalComanda(comanda.id,comanda.total - pedido[0].total );
 			res.json(await deleteById(req.body, Pedidos));
 		} else {
-			res.json({ error: "Comanda não encontrada" });
+			res.json({ error: "Comanda fechada ou pedido inexistente" });
 		}
 	}
 }

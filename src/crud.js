@@ -23,7 +23,6 @@ export async function getAllItensCozinha(table, whereOptions) {
 		.getMany();
 }
 export async function getById(req, table, whereOptions) {
-	console.log(req);
 	if (existeId(req.id)) {
 		const res = await dataBase
 			.getRepository(table.options.name)
@@ -45,7 +44,6 @@ export async function getById(req, table, whereOptions) {
 	}
 }
 export async function getComandaById(req, table, whereOptions) {
-	console.log(req);
 	if (existeId(req.id)) {
 		const res = await dataBase
 			.getRepository(table.options.name)
@@ -69,7 +67,6 @@ export async function getComandaById(req, table, whereOptions) {
 	}
 }
 export async function getPedidoById(req, table, whereOptions) {
-	console.log(req);
 	if (existeId(req.id)) {
 		const res = await dataBase
 			.getRepository(table.options.name)
