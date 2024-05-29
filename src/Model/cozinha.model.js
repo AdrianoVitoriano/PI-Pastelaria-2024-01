@@ -35,7 +35,9 @@ export const Cozinhas = new EntitySchema({
     pedidos:{
       type: "many-to-one",
       target:"pedidos",
-      inverseSide:"cozinhas"
+      inverseSide:"cozinhas",
+      joinColumn: true,
+      onDelete: 'CASCADE'
     },
   },
 });

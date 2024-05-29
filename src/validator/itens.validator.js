@@ -1,17 +1,17 @@
 import { body, param } from 'express-validator'
 
 export const idItensValidator = [
-    param('id').isInt().withMessage("id inválido"),
+    param('id').isInt().withMessage("Id não foi passado ou não é um número inteiro"),
 ]
 
 export const createItensValidator = [
-    body('nome').isString().withMessage("Nome inválido"),
-    body('preco').isFloat().withMessage("Preco inválido"),
-    body('idTipo').isInt().withMessage("idTipo inválido"),
+    body('nome').isString().withMessage("Nome não foi passado ou não é um texto."),
+    body('preco').isFloat().withMessage("Preço não foi passado ou não é um número"),
+    body('idTipo').isInt().withMessage("idTipo não foi passado ou não é um número inteiro"),
 ]
 
 export const updateItensValidator = [
-    body('nome').optional().isString().withMessage("Nome inválido"),
-    body('preco').optional().isFloat().withMessage("Preco inválido"),
-    body('idTipo').optional().isInt().withMessage("idTipo inválido"),
+    body('nome').optional().isString().withMessage("Nome não é um texto."),
+    body('preco').optional().isFloat().withMessage("Preco não é um número"),
+    body('idTipo').optional().isInt().withMessage("idTipo não é um número inteiro"),
 ]

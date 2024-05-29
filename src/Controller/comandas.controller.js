@@ -6,6 +6,7 @@ import {
   getById,
   getAll,
   conferirComanda,
+  getComandaById,
 } from "../crud.js";
 
 class ComandasController {
@@ -19,7 +20,7 @@ class ComandasController {
       return res.status(400).json({ errors: errors.array() })
     }
 
-    res.json(await getById(req.params, Comandas));
+    res.json(await getComandaById(req.params, Comandas));
   }
   static async putComanda(req, res) {
     const errors = validationResult(req)
@@ -36,7 +37,7 @@ class ComandasController {
 export async function conferirComandaExecutar(req, callback) {
   let comanda;
   if (typeof req.body.id === "undefined") {
-    comanda = await conferirComanda(req.body, Comandas).catch((err) => {
+    comanda = await conferirComanda(req.body).catch((err) => {
       return err;
     });
     if (comanda.result === false) {

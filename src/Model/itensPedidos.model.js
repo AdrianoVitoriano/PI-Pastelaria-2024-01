@@ -38,6 +38,8 @@ export const ItensPedidos = new EntitySchema({
       type: "many-to-one",
       target: "pedidos",
       inverseSide: "itensPedidos",
+      joinColumn: true,
+      onDelete: 'CASCADE'
     },
   },
 });

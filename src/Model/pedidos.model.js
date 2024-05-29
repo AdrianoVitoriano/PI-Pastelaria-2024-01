@@ -1,3 +1,4 @@
+
 import { EntitySchema } from "typeorm";
 const data = new Date()
 
@@ -22,8 +23,8 @@ export const Pedidos = new EntitySchema({
       type: "real",
       default: 0,
     },
-    dataHorario: {
-      type: "text",
+    data: {
+      type: "int",
     },    
     finalizado: {
       type: "int",
@@ -35,6 +36,8 @@ export const Pedidos = new EntitySchema({
       type: "one-to-many",
       target: "itensPedidos", 
       inverseSide: "pedidos",
+      cascade: true,
+      onDelete: 'CASCADE',
     },
     usuarios: {
       type: "many-to-one",
@@ -44,12 +47,15 @@ export const Pedidos = new EntitySchema({
     comandas: {
       type: "many-to-one",
       target: "comandas",
-      inverseSide: "pedidos"
+      inverseSide: "pedidos",
+      joinColumn: true,
     },
     cozinhas:{
       type: "one-to-many",
       target:"cozinhas",
-      inverseSide:"pedidos"
+      inverseSide:"pedidos",
+      cascade: true,
+      onDelete: 'CASCADE',
     },
   },
 });

@@ -1,16 +1,16 @@
 import { body, param } from 'express-validator'
 
 export const idPedidosValidator = [
-    param('id').isInt().withMessage("id inválido"),
+    param('id').isInt().withMessage("Id não foi passado ou não é um número inteiro"),
 ]
 
 export const createPedidosValidator = [
-    body('idMesa').isInt().withMessage("idMesa inválido"),
-    body('idUsuario').isInt().withMessage("idUsuario inválido"),
-    body('itens').isArray().withMessage("itens inválido"),
+    body('idMesa').isInt().withMessage("idMesa não foi passado ou não é um número inteiro"),
+    body('idUsuario').isInt().withMessage("idUsuario não foi passado ou não é um número inteiro"),
+    body('itens').isArray().withMessage("Itens não foi passado ou não é um array."),
 ]
 
 export const updatePedidosValidator = [
-    body('idUsuario').optional().isInt().withMessage("idUsuario inválido"),
-    body('finalizado').optional().isInt().withMessage("finalizado inválido"),
+    body('idUsuario').optional().isInt().withMessage("idUsuario não é um número inteiro"),
+    body('finalizado').optional().isInt().withMessage("Finalizado não é um número inteiro (0 ou 1)."),
 ]

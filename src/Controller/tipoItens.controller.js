@@ -12,7 +12,7 @@ class TipoItensController {
       return res.status(400).json({ errors: errors.array() })
     }
   
-    res.json(await getById(req.params, TipoItens)); // res.json(await getById(req.body, TipoItens));
+    res.json(await getById(req.params, TipoItens, { ativo: 1 }));
   
   }
   static async postTipoItens(req, res) {
@@ -31,7 +31,7 @@ class TipoItensController {
     
     req.body.id = parseInt(req.params.id)
 
-    res.json(await updateById(req.body, TipoItens));
+    res.json(await updateById(req.body, TipoItens, { ativo: 1 }));
   }
   static async deleteTipoItens(req, res) {
     const errors = validationResult(req)
@@ -39,9 +39,10 @@ class TipoItensController {
       return res.status(400).json({ errors: errors.array() })
     }
 
-    req.body.id = parseInt(req.params.id)
+		req.body.id = parseInt(req.params.id);
+    req.body.ativo = 0;
 
-    res.json(await deleteById(req.body, TipoItens));
+		res.json(await updateById(req.body, TipoItens, { ativo: 1 }));
   }
 }
 
