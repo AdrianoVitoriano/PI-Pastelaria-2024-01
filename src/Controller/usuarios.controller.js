@@ -4,7 +4,7 @@ import { validationResult } from 'express-validator';
 
 class UsuarioController {
   static async getAllUsuarios(req, res) {
-    res.json(await getAll(Usuarios, { ativo: 1 }));
+    res.json(await getAll(Usuarios));
   }
   static async getUsuarioById(req, res) {
     const errors = validationResult(req)

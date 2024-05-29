@@ -4,7 +4,7 @@ import { validationResult } from "express-validator";
 
 class ItensController {
 	static async getAllItens(req, res) {
-		res.json(await getAll(Itens, { ativo: 1 }));
+		res.json(await getAll(Itens));
 	}
 	static async getItemById(req, res) {
 		const errors = validationResult(req);
