@@ -55,7 +55,6 @@ router.get("/mesas/:id", idMesasValidator, MesasController.getMesaById);
 /*----Rotas comandas----*/
 router.get("/comandas", ComandasController.getAllComandas);
 router.put("/comandas/:id", [idComandasValidator, updateComandasValidator], ComandasController.putComanda);
-router.delete("/comandas/:id", idComandasValidator, ComandasController.deleteComanda);
 router.get("/comandas/:id", idComandasValidator, ComandasController.getComandaById);
 
 /*----Rotas itensPedidos----*/

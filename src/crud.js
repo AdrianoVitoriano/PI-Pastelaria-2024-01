@@ -1,6 +1,8 @@
 import { Query } from "typeorm/driver/Query.js";
 import { dataBase } from "./ormconfig.js";
 import { In } from "typeorm";
+import { Pedidos } from "./Model/pedidos.model.js";
+import { Usuarios } from "./Model/usuarios.model.js";
 
 const err400 = {
   statusCode: 400,
@@ -117,57 +119,83 @@ export async function conferirComanda(body, table) {
 
 export function dataHora() {
   const date = new Date();
-  return `${date.getDate()}/${
-    date.getMonth() + 1
-  }/${date.getFullYear()} | ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+  return `${date.getDate()}/${date.getMonth() + 1
+    }/${date.getFullYear()} | ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 }
 function existeId(id) {
   return id === undefined ? false : true;
 }
-
-export async function totalPorUsuario() {
-   
+export async function totalPorMesa(datainicio, datafim) {
   try {
-    const result = await dataBase.query(`
-      SELECT 
-        p.Id AS Pedido_Id,
-        u.nome AS Nome_Usuário,
-        SUM(p.total) as Total
-      FROM
-        pedidos p
-      INNER JOIN 
-        usuarios u on p.idUsuario = u.id
-      GROUP BY
-        u.id
-    `);
-
-    return result;    
+    const connection = await createConnection();
+    const entityManager = getManager();
+    const comandasRepository = entityManager.getRepository(Comandas);
+    const result = await comandasRepository
+      .createQueryBuilder("comandas")
+      .select("comandas.idMesa", "mesa")
+      .addSelect("SUM(comandas.total)", "total")
+      .addSelect("AVG(comandas.total)", "media")
+      .addSelect(subQuery => {
+        return subQuery
+          .select("usuarios.nome")
+          .from("pedidos", "pedidos")
+          .leftJoin("usuarios", "usuarios", "pedidos.usuariosId = usuarios.id")
+          .where("pedidos.comandasId = comandas.id")
+          .groupBy("pedidos.usuariosId")
+          .orderBy("SUM(pedidos.total)", "DESC")
+          .limit(1);
+      }, "usuario_que_mais_vendeu")
+      .where("comandas.abertura >= :startDate", { startDate: datainicio })
+      .andWhere("comandas.abertura <= :endDate", { endDate: datafim })
+      .groupBy("comandas.idMesa")
+      .getRawMany();
+    await connection.close();
+    return result;
   } catch (error) {
-    console.error("Erro ao obter relatório de vendas:", error);
-    return null;
+
+    throw error;
   }
 }
 
-export async function totalPorMesa() {
+
+export async function totalPorUsuario(dataInicio, dataFim) {
   try {
-    const query = `
-    SELECT
-      m.id AS Nº_Mesa,
-      m.localizacao AS Localização_Mesa,
-      SUM(c.total) as Total
-    FROM
-      comandas c
-    INNER JOIN 
-      mesas m on c.idMesa = m.id
-    GROUP BY
-      m.id
-    `;
+    const connection = await createConnection();
 
-    const result = await dataBase.query(query);
+    const queryResult = await getRepository(Usuarios)
+      .createQueryBuilder("usuarios")
+      .select("usuarios.nome", "nome_usuario")
+      .addSelect("usuarios.id", "id_usuario")
+      .addSelect("SUM(pedidos.total)", "total_vendas")
+      .addSelect(subQuery => {
+        return subQuery
+          .select("itens.nome")
+          .from(Pedidos, "pedidos")
+          .innerJoin(ItensPedidos, "itensPedidos", "pedidos.id = itensPedidos.pedidosId")
+          .innerJoin(Itens, "itens", "itensPedidos.itensId = itens.id")
+          .where("pedidos.usuariosId = usuarios.id")
+          .groupBy("pedidos.comandasId")
+          .orderBy("COUNT(*)", "DESC")
+          .limit(1);
+      }, "produto_mais_vendido")
+      .addSelect(subQuery => {
+        return subQuery
+          .select("COUNT(*)")
+          .from(Pedidos, "p3")
+          .where("p3.usuariosId = usuarios.id")
+          .groupBy("p3.comandasId");
+      }, "media_vendas_por_mesa")
+      .leftJoin(Pedidos, "pedidos", "usuarios.id = pedidos.usuariosId")
+      .where("pedidos.comandasId IN " +
+        "(SELECT id FROM comandas WHERE abertura >= :startDate AND abertura <= :endDate)",
+        { startDate: dataInicio, endDate: dataFim })
+      .groupBy("usuarios.id, usuarios.nome")
+      .getRawMany();
 
-    return result;
+    await connection.close();
+
+    return queryResult;
   } catch (error) {
-    console.error("Erro ao obter relatório de vendas:", error);
-    return null;
+    throw error;
   }
 }
