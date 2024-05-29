@@ -5,7 +5,6 @@ import { validarMesa } from "./mesas.controller.js";
 import { validarUsuario } from "./usuarios.controller.js";
 import { insert, updateById, deleteById, getById, getAll, data, getPedidoById } from "../crud.js";
 import { inserirItens } from "./itensPedidos.controller.js";
-import { Comandas } from "../Model/comandas.model.js";
 
 class PedidosController {
 	static async getAllPedidos(req, res) {

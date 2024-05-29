@@ -1,4 +1,4 @@
-import { body, param } from 'express-validator'
+import { body } from 'express-validator'
 
 export const createPedidosValidator = [
     body('idMesa').isInt().withMessage("idMesa não foi passado ou não é um número inteiro"),

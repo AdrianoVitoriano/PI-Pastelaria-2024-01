@@ -1,4 +1,4 @@
-import { body, param } from 'express-validator'
+import { body } from 'express-validator'
 
 export const updateComandasValidator = [
   body('total').optional().isFloat().withMessage("Total não é um número"),
