@@ -1,9 +1,5 @@
 import { body, param } from 'express-validator'
 
-export const idPedidosValidator = [
-    param('id').isInt().withMessage("Id não foi passado ou não é um número inteiro"),
-]
-
 export const createPedidosValidator = [
     body('idMesa').isInt().withMessage("idMesa não foi passado ou não é um número inteiro"),
     body('idUsuario').isInt().withMessage("idUsuario não foi passado ou não é um número inteiro"),

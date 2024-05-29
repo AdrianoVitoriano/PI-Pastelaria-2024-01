@@ -1,9 +1,5 @@
 import { body, param } from 'express-validator'
 
-export const idItensValidator = [
-    param('id').isInt().withMessage("Id não foi passado ou não é um número inteiro"),
-]
-
 export const createItensValidator = [
     body('nome').isString().withMessage("Nome não foi passado ou não é um texto."),
     body('preco').isFloat().withMessage("Preço não foi passado ou não é um número"),
