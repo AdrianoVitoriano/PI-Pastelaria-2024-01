@@ -1,5 +1,5 @@
 import { Itens } from "../Model/itens.model.js";
-import { insert, updateById, deleteById, getById, getAll,getSomeById } from "../crud.js";
+import { insert, updateById, getById, getAll, getSomeById } from "../crud.js";
 import { validationResult } from 'express-validator';
 
 class ItensController {
@@ -32,19 +32,9 @@ class ItensController {
 
     res.json(await updateById(req.body, Itens));
   }
-  static async deleteItem(req, res) {
-    const errors = validationResult(req)
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() })
-    }
-
-    req.body.id = parseInt(req.params.id)
-
-    res.json(await deleteById(req.body, Itens));
-  }
 }
-export async function getPrecos(ids){
-  return await getSomeById(ids,Itens,["itens.id", "itens.preco"])
+export async function getPrecos(ids) {
+  return await getSomeById(ids, Itens, ["itens.id", "itens.preco"])
 }
 
 export default ItensController;
