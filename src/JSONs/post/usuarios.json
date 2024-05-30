@@ -1,0 +1,8 @@
+{
+  "nome": "",
+  "cargo": "number",
+  "email": "",
+  "cpf": "number",
+  "senha": "",
+  "ativo": "number"
+}

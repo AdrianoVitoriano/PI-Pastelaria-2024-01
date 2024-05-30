@@ -6,8 +6,10 @@ export const Usuarios = new EntitySchema({
   columns: {
     id: {
       primary: true,
-      type: "int",
-      generated: true,
+      type: "uuid",
+      generated: "uuid",
+      default: "uuid_generate_v4()",
+      default: () => `uuid_generate_v4()`,
     },
     nome: {
       type: "text",
