@@ -3,6 +3,5 @@
   "cargo": "number",
   "email": "",
   "cpf": "number",
-  "senha": "",
-  "ativo": "number"
+  "senha": ""
 }
