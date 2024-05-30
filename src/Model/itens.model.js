@@ -19,6 +19,10 @@ export const Itens = new EntitySchema({
       name: "tipoItensId",
       type: "int",
     },
+    ativo: {
+      type: "int",
+      default: 1,
+    },
   },
   relations: {
     tipoItens: {

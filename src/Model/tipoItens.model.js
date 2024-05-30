@@ -12,6 +12,10 @@ export const TipoItens = new EntitySchema({
     nome: {
       type: "text",
     },
+    ativo: {
+      type: "int",
+      default: 1,
+    },
   },
   relations: {
     itens: {

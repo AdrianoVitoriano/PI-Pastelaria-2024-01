@@ -1,13 +1,5 @@
-import { body, param } from 'express-validator'
+import { body } from 'express-validator'
 
-export const idTipoItensValidator = [
-    param('id').isInt().withMessage("id inválido"),
-]
-
-export const createTipoItensValidator = [
-    body('nome').isString().withMessage("nome inválido"),
-]
-
-export const updateTipoItensValidator = [
-    body('nome').optional().isString().withMessage("nome inválido"),
+export const tipoItensValidator = [
+    body('nome').isString().withMessage("Nome não foi passado ou não é um texto."),
 ]
