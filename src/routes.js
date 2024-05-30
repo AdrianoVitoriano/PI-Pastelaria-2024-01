@@ -44,6 +44,7 @@ router.post("/usuarios", createUsuariosValidator, UsuarioController.postUsuario)
 router.put("/usuarios/:id", [idValidator, updateUsuariosValidator], UsuarioController.putUsuario);
 router.delete("/usuarios/:id", idValidator, UsuarioController.deleteUsuario);
 router.get("/usuarios/:id", idValidator, UsuarioController.getUsuarioById);
+router.post("/usuarios/login", UsuarioController.login);
 
 // Rota para o controller de itens
 
