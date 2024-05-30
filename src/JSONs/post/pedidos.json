@@ -4,11 +4,13 @@
   "itens": [
     {
       "id": "",
-      "quantidade": ""
+      "quantidade": "",
+      "cozinha":"number"
     },
     {
       "id": "",
-      "quantidade": ""
+      "quantidade": "",
+      "cozinha":""
     }
   ]
 }
