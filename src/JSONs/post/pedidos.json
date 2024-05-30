@@ -1,0 +1,16 @@
+{
+  "usuarioId": "",
+  "mesaId": "",
+  "itens": [
+    {
+      "id": "",
+      "quantidade": "",
+      "cozinha":"number"
+    },
+    {
+      "id": "",
+      "quantidade": "",
+      "cozinha":""
+    }
+  ]
+}

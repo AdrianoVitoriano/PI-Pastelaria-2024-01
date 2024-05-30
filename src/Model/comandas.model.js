@@ -26,16 +26,16 @@ export const Comandas = new EntitySchema({
     },
   },
   relations: {
-  mesas: {
-    type: "many-to-one",
-    target: "mesas",
-    inverseSide:"comandas",
-    joinColumn: true,
-  }, 
-  pedidos: {
-    type: "one-to-many",
-    target: "pedidos",
-    inverseSide: "comandas",
-  }
-},
+    mesas: {
+      type: "many-to-one",
+      target: "mesas",
+      inverseSide: "comandas",
+      joinColumn: true,
+    },
+    pedidos: {
+      type: "one-to-many",
+      target: "pedidos",
+      inverseSide: "comandas",
+    }
+  },
 });
