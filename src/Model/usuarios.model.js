@@ -24,6 +24,10 @@ export const Usuarios = new EntitySchema({
     senha: {
       type: "text",
     },
+    ativo: {
+      type: "int",
+      default: 1,
+    },
   },
   relations: {
     pedidos: {

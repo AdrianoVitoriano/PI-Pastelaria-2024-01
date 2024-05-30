@@ -17,8 +17,8 @@ export const Comandas = new EntitySchema({
       name: "mesasId",
       type: "int",
     },
-    abertura: {
-      type: "text",
+    data: {
+      type: "int",
     },
     aberta: {
       type: "int",
@@ -30,6 +30,7 @@ export const Comandas = new EntitySchema({
     type: "many-to-one",
     target: "mesas",
     inverseSide:"comandas",
+    joinColumn: true,
   }, 
   pedidos: {
     type: "one-to-many",

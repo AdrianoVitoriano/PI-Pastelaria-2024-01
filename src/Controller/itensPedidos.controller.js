@@ -1,4 +1,5 @@
 import { ItensPedidos } from "../Model/itensPedidos.model.js";
+import { inserirItensCozinha } from "./cozinha.controller.js";
 import { getById, getAll, insert } from "../crud.js";
 import { getPrecos } from "./itens.controller.js";
 import { validationResult } from 'express-validator';
@@ -20,13 +21,18 @@ class ItensPedidosController {
 }
 export async function inserirItens(itens,idPedido){
   const itensPreco = await getPrecos(itens.map((item) => item.idItem))
+  let itensCozinha = []
   let total = 0
   itens.forEach((objeto) => {
     objeto.subtotal = objeto.quantidade * itensPreco.find((item) => item.itens_id == objeto.idItem).itens_preco;
     objeto.idPedido = idPedido;
     total += objeto.subtotal
+    if(objeto.cozinha){
+      itensCozinha.push(objeto)
+    }
   });
   await insert(itens, ItensPedidos)
+  await inserirItensCozinha(itensCozinha)
   return total
 }
 

@@ -11,7 +11,7 @@ class UsuarioController {
       return res.status(400).json({ errors: errors.array() })
     }
 
-    res.json(await getById(req.params, Usuarios));
+    res.json(await getById(req.params, Usuarios, { ativo: 1 }));
   }
   static async postUsuario(req, res) {
     const errors = validationResult(req)
@@ -29,7 +29,7 @@ class UsuarioController {
 
     req.body.id = parseInt(req.params.id)
 
-    res.json(await updateById(req.body, Usuarios));
+    res.json(await updateById(req.body, Usuarios, { ativo: 1 }));
   }
 }
 export async function validarUsuario(id) {

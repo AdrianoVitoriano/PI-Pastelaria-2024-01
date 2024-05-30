@@ -1,13 +1,5 @@
-import { body, param } from 'express-validator'
+import { body } from 'express-validator'
 
-export const idMesasValidator = [
-  param('id').isInt().withMessage("id inválido"),
-]
-
-export const createMesasValidator = [
-  body('localizacao').isString().withMessage("Localizacao inválida"),
-]
-
-export const updateMesasValidator = [
-  body('localizacao').optional().isString().withMessage("Localizacao inválida"),
+export const mesasValidator = [
+  body('localizacao').isString().withMessage("Localização não foi passado ou não é um texto."),
 ]

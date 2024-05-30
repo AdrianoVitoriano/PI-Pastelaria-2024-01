@@ -30,7 +30,7 @@ class TipoItensController {
 
     req.body.id = parseInt(req.params.id)
 
-    res.json(await updateById(req.body, TipoItens));
+    res.json(await updateById(req.body, TipoItens, { ativo: 1 }));
   }
 }
 

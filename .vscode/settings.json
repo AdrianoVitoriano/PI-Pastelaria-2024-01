@@ -1,0 +1,11 @@
+{
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "driver": "SQLite",
+      "database": "${workspaceFolder:API_PastelariaCentral}/database.db",
+      "name": "batabasePI"
+    }
+  ],
+  "sqltools.useNodeRuntime": true
+}
