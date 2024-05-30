@@ -6,6 +6,21 @@ const err400 = {
 	statusCode: 400,
 	msg: "ID não foi encontrado nos parâmetros passados. Por gentileza verificar a variável passada e/ou a documentação.",
 };
+//esta função irá conferir se existe o email passado no body, se existir passara true, caso contrário passara false
+export async function conferirEmail(req) {
+	try {
+		const result = await dataBase
+			.getRepository("usuarios")
+			.createQueryBuilder()
+			.where({ email: req.body.email, ativo: 1 })
+			.getMany();
+
+		return result.length > 0 ? result[0] : false;
+	} catch (error) {
+		console.error("Erro ao conferir email:", error);
+		throw new Error("Erro ao conferir email");
+	}
+}
 
 export async function getAll(table, whereOptions) {
 	return await dataBase
@@ -207,20 +222,20 @@ export async function totalPorUsuario(dtInicio, dtFim) {
 
 export async function totalPorMesa(dtInicio, dtFim) {
 	try {
-        const query = dataBase
-            .getRepository("comandas")
-            .createQueryBuilder("comanda")
-            .select("comanda.mesasId", "mesa")
-            .addSelect("SUM(comanda.total)", "total")
-            .groupBy("comanda.mesasId")
-            
+		const query = dataBase
+			.getRepository("comandas")
+			.createQueryBuilder("comanda")
+			.select("comanda.mesasId", "mesa")
+			.addSelect("SUM(comanda.total)", "total")
+			.groupBy("comanda.mesasId")
 
-        if (dtFim) {
-            dtInicio = dtInicio ? dtInicio : 0;
-            query.where("comanda.data BETWEEN :dtInicio AND :dtFim", { dtInicio, dtFim });
-        } else if (dtInicio) {
-            query.where("comanda.data >= :dtInicio", { dtInicio: `${dtInicio}` });
-        }
+
+		if (dtFim) {
+			dtInicio = dtInicio ? dtInicio : 0;
+			query.where("comanda.data BETWEEN :dtInicio AND :dtFim", { dtInicio, dtFim });
+		} else if (dtInicio) {
+			query.where("comanda.data >= :dtInicio", { dtInicio: `${dtInicio}` });
+		}
 
 		return await query.getRawMany();
 	} catch (err) {
