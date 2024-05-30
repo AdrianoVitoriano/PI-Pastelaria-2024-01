@@ -13,7 +13,7 @@ app.use(router); // Busca as rotas no arquivo routes.js
 
 app.listen(PORThttp, () => {
   console.clear();
-  console.log(`API executando na porta ${port}`);
+  console.log(`API executando na porta ${PORThttp}`);
 });
 
 https

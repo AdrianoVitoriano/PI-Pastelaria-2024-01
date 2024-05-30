@@ -1,8 +1,5 @@
 import { dataBase } from "./ormconfig.js";
 import { In } from "typeorm";
-import { Pedidos } from "./Model/pedidos.model.js";
-import { Usuarios } from "./Model/usuarios.model.js";
-
 
 const err400 = {
 	statusCode: 400,
@@ -179,86 +176,57 @@ export async function conferirComanda(body) {
 export function data() {
 	// console.log(date[Symbol.toPrimitive]('number'))
 	return Date.now();
+}
+export function dataHora() {
+	const date = new Date();
+	return `${date.getDate()}/${date.getMonth() + 1
+		}/${date.getFullYear()} | ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+}
+function existeId(id) {
+	return id === undefined ? false : true;
+}
+export async function totalPorMesa(dtInicio, dtFim) {
+	try {
+		const query = dataBase
+			.getRepository("comandas")
+			.createQueryBuilder("comanda")
+			.select("comanda.mesasId", "mesa")
+			.addSelect("SUM(comanda.total)", "total")
+			.groupBy("comanda.mesasId")
 
-	export function dataHora() {
-		const date = new Date();
-		return `${date.getDate()}/${date.getMonth() + 1
-			}/${date.getFullYear()} | ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-	}
-	function existeId(id) {
-		return id === undefined ? false : true;
-	}
-	export async function totalPorMesa(datainicio, datafim) {
-		try {
-			const connection = await createConnection();
-			const entityManager = getManager();
-			const comandasRepository = entityManager.getRepository(Comandas);
-			const result = await comandasRepository
-				.createQueryBuilder("comandas")
-				.select("comandas.idMesa", "mesa")
-				.addSelect("SUM(comandas.total)", "total")
-				.addSelect("AVG(comandas.total)", "media")
-				.addSelect(subQuery => {
-					return subQuery
-						.select("usuarios.nome")
-						.from("pedidos", "pedidos")
-						.leftJoin("usuarios", "usuarios", "pedidos.usuariosId = usuarios.id")
-						.where("pedidos.comandasId = comandas.id")
-						.groupBy("pedidos.usuariosId")
-						.orderBy("SUM(pedidos.total)", "DESC")
-						.limit(1);
-				}, "usuario_que_mais_vendeu")
-				.where("comandas.abertura >= :startDate", { startDate: datainicio })
-				.andWhere("comandas.abertura <= :endDate", { endDate: datafim })
-				.groupBy("comandas.idMesa")
-				.getRawMany();
-			await connection.close();
-			return result;
-		} catch (error) {
 
-			throw error;
+		if (dtFim) {
+			dtInicio = dtInicio ? dtInicio : 0;
+			query.where("comanda.data BETWEEN :dtInicio AND :dtFim", { dtInicio, dtFim });
+		} else if (dtInicio) {
+			query.where("comanda.data >= :dtInicio", { dtInicio: `${dtInicio}` });
 		}
+
+		return await query.getRawMany();
+	} catch (err) {
+		return err;
 	}
+}
 
 
-	export async function totalPorUsuario(dataInicio, dataFim) {
-		try {
-			const connection = await createConnection();
+export async function totalPorUsuario(dtInicio, dtFim) {
+	try {
+		const query = dataBase
+			.getRepository("pedidos")
+			.createQueryBuilder("pedido")
+			.select("pedido.usuariosid", "usuariosid")
+			.addSelect("SUM(pedido.total)", "total")
+			.groupBy("pedido.usuariosid");
 
-			const queryResult = await getRepository(Usuarios)
-				.createQueryBuilder("usuarios")
-				.select("usuarios.nome", "nome_usuario")
-				.addSelect("usuarios.id", "id_usuario")
-				.addSelect("SUM(pedidos.total)", "total_vendas")
-				.addSelect(subQuery => {
-					return subQuery
-						.select("itens.nome")
-						.from(Pedidos, "pedidos")
-						.innerJoin(ItensPedidos, "itensPedidos", "pedidos.id = itensPedidos.pedidosId")
-						.innerJoin(Itens, "itens", "itensPedidos.itensId = itens.id")
-						.where("pedidos.usuariosId = usuarios.id")
-						.groupBy("pedidos.comandasId")
-						.orderBy("COUNT(*)", "DESC")
-						.limit(1);
-				}, "produto_mais_vendido")
-				.addSelect(subQuery => {
-					return subQuery
-						.select("COUNT(*)")
-						.from(Pedidos, "p3")
-						.where("p3.usuariosId = usuarios.id")
-						.groupBy("p3.comandasId");
-				}, "media_vendas_por_mesa")
-				.leftJoin(Pedidos, "pedidos", "usuarios.id = pedidos.usuariosId")
-				.where("pedidos.comandasId IN " +
-					"(SELECT id FROM comandas WHERE abertura >= :startDate AND abertura <= :endDate)",
-					{ startDate: dataInicio, endDate: dataFim })
-				.groupBy("usuarios.id, usuarios.nome")
-				.getRawMany();
-
-			await connection.close();
-
-			return queryResult;
-		} catch (error) {
-			throw error;
+		if (dtFim) {
+			dtInicio = dtInicio ? dtInicio : 0;
+			query.where("pedido.data BETWEEN :dtInicio AND :dtFim", { dtInicio, dtFim });
+		} else if (dtInicio) {
+			query.where("pedido.data >= :dtInicio", { dtInicio: `${dtInicio}` });
 		}
+
+		return await query.getRawMany();
+	} catch (err) {
+		return err;
 	}
+}

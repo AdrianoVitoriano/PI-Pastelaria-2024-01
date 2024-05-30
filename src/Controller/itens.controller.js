@@ -34,9 +34,6 @@ class ItensController {
 	}
 }
 export async function getPrecos(ids) {
-	return await getSomeById(ids, Itens, ["itens.id", "itens.preco"]);
-}
-export async function getPrecos(ids) {
 	return await getSomeById(ids, Itens, ["itens.id", "itens.preco"])
 }
 

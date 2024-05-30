@@ -177,7 +177,6 @@
     "toidentifier": "^1.0.1",
     "tunnel-agent": "^0.6.0",
     "type-is": "^1.6.18",
-    "typeorm": "^0.3.20",
     "unique-filename": "^1.1.1",
     "unique-slug": "^2.0.2",
     "unpipe": "^1.0.0",
@@ -196,6 +195,8 @@
   "author": "kairo",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^3.1.0"
+    "@types/node": "^20.12.13",
+    "nodemon": "^3.1.0",
+    "typeorm": "^0.3.20"
   }
 }
