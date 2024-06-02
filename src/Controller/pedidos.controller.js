@@ -64,10 +64,10 @@ class PedidosController {
 		}
 		req.body.id = parseInt(req.params.id);
 		let pedido = await getById(req.body, Pedidos);
-		let comanda = await conferirComandaExecutar({body:{ id: pedido[0].idComanda }});
+		let comanda = await conferirComandaExecutar({ body: { id: pedido[0].idComanda } });
 		if (comanda.aberta) {
 			comanda = comanda.comanda
-			await atualizarTotalComanda(comanda.id,comanda.total - pedido[0].total );
+			await atualizarTotalComanda(comanda.id, comanda.total - pedido[0].total);
 			res.json(await deleteById(req.body, Pedidos));
 		} else {
 			res.json({ error: "Comanda fechada ou pedido inexistente" });
