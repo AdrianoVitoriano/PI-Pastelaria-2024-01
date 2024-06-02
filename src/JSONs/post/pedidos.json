@@ -1,16 +1,16 @@
 {
-  "usuarioId": "",
-  "mesaId": "",
+  "idUsuario": "",
+  "idMesa": 0,
   "itens": [
     {
-      "id": "",
-      "quantidade": "",
-      "cozinha":"number"
+      "id": 0,
+      "quantidade": 0,
+      "cozinha": 0
     },
     {
-      "id": "",
-      "quantidade": "",
-      "cozinha":""
+      "id": 0,
+      "quantidade": 0,
+      "cozinha": 0
     }
   ]
 }

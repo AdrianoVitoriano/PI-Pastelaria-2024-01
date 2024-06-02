@@ -21,21 +21,22 @@ test('POST /pedidos cria um novo pedido', async () => {
   const response = await request(app)
     .post('/pedidos')
     .send({
-      "usuarioId": "554a167f-a6fb-47a0-bbef-c24f899ee43c",
-      "mesaId": 1,
+      "idUsuario": "c3edeca7-3ff3-4b71-aace-6385a6da73ef",
+      "idMesa": 1,
       "itens": [
         {
-          "id": 2,
-          "quantidade": 8,
+          "id": 1,
+          "quantidade": 5,
           "cozinha": 0
         },
         {
-          "id": 3,
-          "quantidade": 5,
+          "id": 1,
+          "quantidade": 6,
           "cozinha": 1
         }
       ]
-    });
+    }
+    );
 
   if (response.status === 200 || response.status === 201) {
     console.log('Teste passou: POST /pedidos criou um novo pedido');
@@ -61,3 +62,33 @@ test('POST /usuarios cria um novo usuario', async () => {
     throw new Error('Teste falhou: POST /usuarios não criou um novo usuario');
   }
 })
+/*----------Rota post tipoitem----------*/
+test('POST /tipoitens cria um novo tipo de item', async () => {
+  const response = await request(app)
+    .post('/tipoitens')
+    .send({
+      "nome": "assado",
+    });
+
+  if (response.status === 200 || response.status === 201) {
+    console.log('Teste passou: POST /tipositens criou um novo tipo de item');
+  } else {
+    throw new Error('Teste falhou: POST /tipositens não criou um novo tipo de item');
+  }
+})
+/*----------Rota post item----------*/
+test('POST /itens cria um novo item', async () => {
+  const response = await request(app)
+    .post('/itens')
+    .send({
+      "nome": "chocolate",
+      "preco": 10,
+      "idTipo": 1
+    });
+
+  if (response.status === 200 || response.status === 201) {
+    console.log('Teste passou: POST /itens criou um novo item');
+  } else {
+    throw new Error('Teste falhou: POST /itens não criou um novo item');
+  }
+});
