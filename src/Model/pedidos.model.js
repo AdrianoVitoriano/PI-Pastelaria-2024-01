@@ -13,7 +13,7 @@ export const Pedidos = new EntitySchema({
     },
     idUsuario: {
       name: "usuariosId",
-      type: "int",
+      type: "text",
     },
     idComanda: {
       name: "comandasId",
@@ -25,7 +25,7 @@ export const Pedidos = new EntitySchema({
     },
     data: {
       type: "int",
-    },    
+    },
     finalizado: {
       type: "int",
       default: 0,
@@ -34,7 +34,7 @@ export const Pedidos = new EntitySchema({
   relations: {
     itensPedidos: {
       type: "one-to-many",
-      target: "itensPedidos", 
+      target: "itensPedidos",
       inverseSide: "pedidos",
       cascade: true,
       onDelete: 'CASCADE',
@@ -50,10 +50,10 @@ export const Pedidos = new EntitySchema({
       inverseSide: "pedidos",
       joinColumn: true,
     },
-    cozinhas:{
+    cozinhas: {
       type: "one-to-many",
-      target:"cozinhas",
-      inverseSide:"pedidos",
+      target: "cozinhas",
+      inverseSide: "pedidos",
       cascade: true,
       onDelete: 'CASCADE',
     },
