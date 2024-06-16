@@ -20,19 +20,6 @@ export const createItensValidator = [
 ]
 
 export const updateItensValidator = [
-  /*
-    #swagger.requestBody={
-      required: true,
-      content:{
-        "application/json":{
-          schema:{
-            $ref: "#/definitions/AddOrUpdateItens"
-          },
-        },
-      },
-    }
-  */
-
     /*
     #swagger.requestBody={
       required: true,

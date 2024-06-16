@@ -12,16 +12,6 @@
     }
   ],
   "paths": {
-    "/sayhi": {
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/mesas": {
       "get": {
         "description": "",

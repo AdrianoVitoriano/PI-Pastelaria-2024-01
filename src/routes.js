@@ -18,10 +18,6 @@ import CozinhaController from "./Controller/cozinha.controller.js";
 
 export const router = Router();
 
-router.get("/sayhi", (req, res) => {
-	res.send("Hi!");
-});
-
 // Rota para o controller de mesas
 
 router.get("/mesas", MesasController.getAllMesas);
