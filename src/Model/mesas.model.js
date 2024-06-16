@@ -12,6 +12,10 @@ export const Mesas = new EntitySchema({
     localizacao: {
       type: "text",
     },
+    ativo: {
+      type: "int",
+      default: 1,
+    },
   },
   relations: {
     comandas: {

@@ -16,6 +16,13 @@ const doc = {
         UpdateComandas: {
             aberta: 1,
         },
+        AddOrUpdateTipoItens: {
+            nome: 'Pastel de Carne',
+            ativo: 1
+        },
+        DeleteTipoItens: {
+            ativo: 1,
+        },
         AddOrUpdateItens: {
             nome: 'Pastel de Carne',
             preco: 5.00,
@@ -23,30 +30,27 @@ const doc = {
             ativo: 1
         },
         DeleteItens: {
-            id: 1,
+            ativo: 1,
         },
         AddOrUpdateUsuarios: {
             nome: 'Lucas',
-            email: '',
+            email: 'Lucas@gmail.com',
         },
         DeleteUsuarios: {
-            id: 1,
+            ativo: 1,
         },
-        AddPedidos: {
+        AddOrUpdatePedidos: {
             id_usuario: 1,
-            id_produto: 1,
-            quantidade: 2,
-            valor: 5.00,
+            idComanda: 1,
+            total: 250.00,
             data: '2021-09-01',
+            finalizado: 1
         },
         DeletePedidos: {
             id: 1,
         },
         AddOrUpdateMesas: {
-            status: 'Livre',
-        },
-        DeleteMesas: {
-            id: 1,
+            localizacao: 'Perto da entrada',
         },
         UpdateCozinha: {
             produzido: 1,

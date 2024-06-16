@@ -85,7 +85,7 @@
           }
         }
       },
-      "get": {
+      "delete": {
         "description": "",
         "parameters": [
           {
@@ -106,13 +106,41 @@
           }
         },
         "requestBody": {
-          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DeleteItens"
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "example": "any"
+                  },
+                  "ativo": {
+                    "example": "any"
+                  }
+                }
               }
             }
+          }
+        }
+      },
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           }
         }
       }
@@ -201,11 +229,18 @@
           }
         },
         "requestBody": {
-          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DeleteItens"
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "example": "any"
+                  },
+                  "ativo": {
+                    "example": "any"
+                  }
+                }
               }
             }
           }
@@ -229,16 +264,6 @@
           },
           "400": {
             "description": "Bad Request"
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DeleteItens"
-              }
-            }
           }
         }
       }
@@ -327,11 +352,18 @@
           }
         },
         "requestBody": {
-          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DeleteItens"
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "example": "any"
+                  },
+                  "ativo": {
+                    "example": "any"
+                  }
+                }
               }
             }
           }
@@ -355,16 +387,6 @@
           },
           "400": {
             "description": "Bad Request"
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DeleteItens"
-              }
-            }
           }
         }
       }
@@ -453,11 +475,18 @@
           }
         },
         "requestBody": {
-          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DeleteItens"
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "example": "any"
+                  },
+                  "ativo": {
+                    "example": "any"
+                  }
+                }
               }
             }
           }
@@ -481,16 +510,6 @@
           },
           "400": {
             "description": "Bad Request"
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DeleteItens"
-              }
-            }
           }
         }
       }
@@ -556,16 +575,6 @@
           "400": {
             "description": "Bad Request"
           }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DeleteItens"
-              }
-            }
-          }
         }
       }
     },
@@ -593,7 +602,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AddItens"
+                "$ref": "#/components/schemas/AddOrUpdatePedidos"
               }
             }
           }
@@ -626,7 +635,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateItens"
+                "$ref": "#/components/schemas/AddOrUpdatePedidos"
               }
             }
           }
@@ -653,11 +662,15 @@
           }
         },
         "requestBody": {
-          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DeleteItens"
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "example": "any"
+                  }
+                }
               }
             }
           }
@@ -681,16 +694,6 @@
           },
           "400": {
             "description": "Bad Request"
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DeleteItens"
-              }
-            }
           }
         }
       }
@@ -725,16 +728,6 @@
           "400": {
             "description": "Bad Request"
           }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DeleteItens"
-              }
-            }
-          }
         }
       }
     },
@@ -767,16 +760,6 @@
           },
           "400": {
             "description": "Bad Request"
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DeleteItens"
-              }
-            }
           }
         }
       }
@@ -853,6 +836,28 @@
           }
         }
       },
+      "AddOrUpdateTipoItens": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string",
+            "example": "Pastel de Carne"
+          },
+          "ativo": {
+            "type": "number",
+            "example": 1
+          }
+        }
+      },
+      "DeleteTipoItens": {
+        "type": "object",
+        "properties": {
+          "ativo": {
+            "type": "number",
+            "example": 1
+          }
+        }
+      },
       "AddOrUpdateItens": {
         "type": "object",
         "properties": {
@@ -877,7 +882,7 @@
       "DeleteItens": {
         "type": "object",
         "properties": {
-          "id": {
+          "ativo": {
             "type": "number",
             "example": 1
           }
@@ -892,41 +897,41 @@
           },
           "email": {
             "type": "string",
-            "example": ""
+            "example": "Lucas@gmail.com"
           }
         }
       },
       "DeleteUsuarios": {
         "type": "object",
         "properties": {
-          "id": {
+          "ativo": {
             "type": "number",
             "example": 1
           }
         }
       },
-      "AddPedidos": {
+      "AddOrUpdatePedidos": {
         "type": "object",
         "properties": {
           "id_usuario": {
             "type": "number",
             "example": 1
           },
-          "id_produto": {
+          "idComanda": {
             "type": "number",
             "example": 1
           },
-          "quantidade": {
+          "total": {
             "type": "number",
-            "example": 2
-          },
-          "valor": {
-            "type": "number",
-            "example": 5
+            "example": 250
           },
           "data": {
             "type": "string",
             "example": "2021-09-01"
+          },
+          "finalizado": {
+            "type": "number",
+            "example": 1
           }
         }
       },
@@ -942,18 +947,9 @@
       "AddOrUpdateMesas": {
         "type": "object",
         "properties": {
-          "status": {
+          "localizacao": {
             "type": "string",
-            "example": "Livre"
-          }
-        }
-      },
-      "DeleteMesas": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number",
-            "example": 1
+            "example": "Perto da entrada"
           }
         }
       },

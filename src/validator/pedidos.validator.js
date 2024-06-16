@@ -7,7 +7,7 @@ export const createPedidosValidator = [
       content:{
         "application/json":{
           schema:{
-            $ref: "#/definitions/AddItens"
+            $ref: "#/definitions/AddOrUpdatePedidos"
           },
         },
       },
@@ -25,7 +25,7 @@ export const updatePedidosValidator = [
       content:{
         "application/json":{
           schema:{
-            $ref: "#/definitions/UpdateItens"
+            $ref: "#/definitions/AddOrUpdatePedidos"
           },
         },
       },
