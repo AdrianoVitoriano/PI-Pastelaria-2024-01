@@ -4,7 +4,7 @@ import { updateItensValidator, createItensValidator } from "./validator/itens.va
 import { idValidator } from "./validator/idValidator.js";
 import { mesasValidator } from "./validator/mesas.validator.js";
 import { updatePedidosValidator, createPedidosValidator } from "./validator/pedidos.validator.js";
-import { createTipoItensValidator, tipoItensValidator, updateTipoItensValidator } from "./validator/tipoItens.validator.js";
+import { createTipoItensValidator, updateTipoItensValidator } from "./validator/tipoItens.validator.js";
 import { updateUsuariosValidator, createUsuariosValidator } from "./validator/usuarios.validator.js";
 import RelatoriosController from "./Controller/relatorio.controller.js";
 import UsuarioController from "./Controller/usuarios.controller.js";
