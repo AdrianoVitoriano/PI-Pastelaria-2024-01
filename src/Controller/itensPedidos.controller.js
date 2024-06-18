@@ -1,7 +1,7 @@
 import { ItensPedidos } from "../Model/itensPedidos.model.js";
 import { inserirItensCozinha } from "./cozinha.controller.js";
-import { getById, getAll, insert } from "../crud.js";
-import { getPrecos } from "./itens.controller.js";
+import { getById, getAll, insert, getItensByPedidoId } from "../crud.js";
+import { getNamesItens, getPrecos } from "./itens.controller.js";
 import { validationResult } from 'express-validator';
 
 class ItensPedidosController {
@@ -15,8 +15,17 @@ class ItensPedidosController {
     }
 
     req.body.id = parseInt(req.params.id)
-    
-    res.json(await getById(req.body, ItensPedidos));
+    let itens = await getItensByPedidoId(req.body, ItensPedidos)
+    let idItens = [];
+
+		itens.map((item) => {idItens.push(item.idItem)});
+
+		let nomes = await getNamesItens(idItens);
+		itens.map((item) => {
+			item.nomeItem = nomes.find((i) => i.itens_id == item.idItem).itens_nome;
+		});
+
+    res.json(itens);
   }
 }
 export async function inserirItens(itens,idPedido){

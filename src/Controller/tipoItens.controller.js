@@ -1,10 +1,16 @@
 import { TipoItens } from "../Model/tipoItens.model.js";
-import { insert, updateById, deleteById, getById, getAll } from "../crud.js";
+import { insert, updateById, getById, getAll, getAllTipoItensWithItens } from "../crud.js";
 import { validationResult } from 'express-validator';
 
 class TipoItensController {
   static async getAllTipoItens(req, res) {
     res.json( await getAll(TipoItens));
+  }
+  static async getAllTipoItensAtivos(req, res) {
+    res.json(await getAll(TipoItens, { ativo: 1 }));
+  }
+  static async getAllTipoItensWithItens(req, res) {
+    res.json(await getAllTipoItensWithItens(TipoItens));
   }
   static async getTipoItensById(req, res) {
     const errors = validationResult(req)
@@ -31,7 +37,7 @@ class TipoItensController {
     
     req.body.id = parseInt(req.params.id)
 
-    res.json(await updateById(req.body, TipoItens, { ativo: 1 }));
+    res.json(await updateById(req.body, TipoItens));
   }
   static async deleteTipoItens(req, res) {
     const errors = validationResult(req)

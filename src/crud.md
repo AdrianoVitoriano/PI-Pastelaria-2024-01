@@ -1,3 +1,6 @@
+<!-- Descreva na linguagem markdown, o funcionamento de cada função abaixo -->
+<!--
+
 import { dataBase } from "./ormconfig.js";
 import { In } from "typeorm";
 
@@ -11,13 +14,14 @@ export async function getAll(table, whereOptions) {
 	return await dataBase
 		.getRepository(table.options.name)
 		.createQueryBuilder()
-		.where(whereOptions ? whereOptions : {})
+		.where(whereOptions ? { ativo: whereOptions.ativo } : {})
 		.getMany();
 }
 export async function getAllItensCozinha(table, whereOptions) {
 	return await dataBase
 		.getRepository(table.options.name)
 		.createQueryBuilder()
+		.leftJoinAndSelect("cozinhas.pedidos", "pedidos")
 		.where({ produzido: 0 })
 		.getMany();
 }
@@ -65,51 +69,14 @@ export async function getComandaById(req, table, whereOptions) {
 		return err400;
 	}
 }
-
-export async function getAllTipoItensWithItens(table) {
-		const res = await dataBase
-			.getRepository(table.options.name)
-			.createQueryBuilder()
-			.leftJoinAndSelect("tipoItens.itens", "itens")
-			.getMany()
-			.catch((err) => {
-				return err;
-			});
-
-		if (res[0]) {
-			res.result = true;
-			return res;
-		} else {
-			return { result: false };
-		}
-}
 export async function getPedidoById(req, table, whereOptions) {
 	if (existeId(req.id)) {
 		const res = await dataBase
 			.getRepository(table.options.name)
 			.createQueryBuilder()
+			.leftJoinAndSelect("pedidos.itensPedidos", "itensPedido")
+			.leftJoinAndSelect("pedidos.cozinhas", "cozinhas")
 			.where(whereOptions ? { id: req.id, ativo: whereOptions.ativo } : { id: req.id })
-			.getMany()
-			.catch((err) => {
-				return err;
-			});
-
-		if (res[0]) {
-			res.result = true;
-			return res;
-		} else {
-			return { result: false };
-		}
-	} else {
-		return err400;
-	}
-}
-export async function getItensByPedidoId(req, table, whereOptions) {
-	if (existeId(req.id)) {
-		const res = await dataBase
-			.getRepository(table.options.name)
-			.createQueryBuilder()
-			.where({ idPedido: req.id })
 			.getMany()
 			.catch((err) => {
 				return err;
@@ -215,11 +182,6 @@ export function data() {
 	return Date.now();
 
 }
-export function converterData(data) {
-	data = new Date(data);
-	return data.toLocaleString("pt-BR")
-
-}
 function existeId(id) {
 	return id === undefined ? false : true;
 }
@@ -254,7 +216,7 @@ export async function totalPorMesa(dtInicio, dtFim) {
             .select("comanda.mesasId", "mesa")
             .addSelect("SUM(comanda.total)", "total")
             .groupBy("comanda.mesasId")
-            
+
 
         if (dtFim) {
             dtInicio = dtInicio ? dtInicio : 0;
@@ -268,3 +230,139 @@ export async function totalPorMesa(dtInicio, dtFim) {
 		return err;
 	}
 }
+
+
+ -->
+
+# CRUD
+
+## getAll(table, whereOptions)
+
+Função que retorna todos os registros de uma tabela. Caso seja passado um objeto whereOptions, a função irá filtrar os registros de acordo com as opções passadas.
+
+_Parâmetros_
+
+- table: Objeto que contém as opções da tabela que será consultada.
+- whereOptions: Objeto que contém as opções de filtro da consulta.
+
+_Exemplo da variável whereOptions:_
+
+```Javascript
+{
+    ativo: 1
+}
+```
+
+_Código_
+
+```Javascript
+export async function  getAll(table, whereOptions){
+    return await dataBase
+        .getRepository(table.options.name)
+        .createQueryBuilder()
+        .where(whereOptions ? { ativo: whereOptions.ativo } : {})
+        .getMany();
+}
+```
+
+_Retorno_
+
+A função retorna um array com os registros da tabela consultada.
+
+## getAllItensCozinha(table, whereOptions)
+
+Função que retorna todos os registros de uma tabela. Caso seja passado um objeto whereOptions, a função irá filtrar os registros de acordo com as opções passadas.
+
+_Parâmetros_
+
+- table: Objeto que contém as opções da tabela que será consultada.
+- whereOptions: Objeto que contém as opções de filtro da consulta.
+
+_Exemplo da variável whereOptions:_
+
+```Javascript
+{
+    produzido: 0
+}
+```
+
+_Código_
+
+```Javascript
+export async function  getAllItensCozinha(table, whereOptions){
+    return await dataBase
+        .getRepository(table.options.name)
+        .createQueryBuilder()
+        .leftJoinAndSelect("cozinhas.pedidos", "pedidos")
+        .where({ produzido: 0 })
+        .getMany();
+}
+```
+
+_Retorno_
+
+A função retorna um array com os registros da tabela consultada.
+
+## getById(req, table, whereOptions)
+
+Função que retorna um registro de uma tabela de acordo com o id passado. Caso seja passado um objeto whereOptions, a função irá filtrar o registro de acordo com as opções passadas.
+
+_Parâmetros_
+
+- req: Objeto que contém o id do registro que será consultado.
+- table: Objeto que contém as opções da tabela que será consultada.
+- whereOptions: Objeto que contém as opções de filtro da consulta.
+
+_Exemplo da variável req:_
+
+```Javascript
+{
+    id: 1
+}
+```
+
+_Código_
+
+## getById(req, table, whereOptions)
+
+Função que retorna um registro de uma tabela de acordo com o id passado. Caso seja passado um objeto whereOptions, a função irá filtrar o registro de acordo com as opções passadas.
+
+## getComandaById(req, table, whereOptions)
+
+Função que retorna um registro de uma tabela de acordo com o id passado. Caso seja passado um objeto whereOptions, a função irá filtrar o registro de acordo com as opções passadas.
+
+## getPedidoById(req, table, whereOptions)
+
+Função que retorna um registro de uma tabela de acordo com o id passado. Caso seja passado um objeto whereOptions, a função irá filtrar o registro de acordo com as opções passadas.
+
+## getSomeById(arrayId, table, arrayColumnsReturn)
+
+Função que retorna um conjunto de registros de uma tabela de acordo com os ids passados. Caso seja passado um arrayColumnsReturn, a função irá retornar apenas as colunas passadas.
+
+## insert(body, table)
+
+Função que insere um registro em uma tabela.
+
+## updateById(body, table, whereOptions)
+
+Função que atualiza um registro de uma tabela de acordo com o id passado. Caso seja passado um objeto whereOptions, a função irá filtrar o registro de acordo com as opções passadas.
+
+## deleteById(body, table)
+
+Função que deleta um registro de uma tabela de acordo com o id passado.
+
+## conferirComanda(body)
+
+Função que retorna uma comanda de acordo com o id da mesa passado.
+
+## data()
+
+Função que retorna a data atual.
+
+## totalPorUsuario(dtInicio, dtFim)
+
+Função que retorna o total de vendas por usuário de acordo com as datas passadas.
+
+## totalPorMesa(dtInicio, dtFim)
+
+Função que retorna o total de vendas por mesa

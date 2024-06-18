@@ -1,10 +1,27 @@
 import { Mesas } from "../Model/mesas.model.js";
-import { insert, updateById, deleteById, getById, getAll } from "../crud.js";
+import { insert, updateById, deleteById, getById, getAll, conferirComanda } from "../crud.js";
 import { validationResult } from 'express-validator';
+import { conferirComandaExecutar } from "./comandas.controller.js";
 
 class MesasController {
   static async getAllMesas(req, res) {
     res.json(await getAll(Mesas));
+  }
+  static async getAllMesasWithComanda(req, res) {
+    let mesas = await getAll(Mesas);
+    await Promise.all(
+			mesas.map(async (mesa) => {
+        let comanda = await conferirComanda({idMesa: mesa.id});
+        if(comanda.result){
+          mesa.comanda = comanda.id;
+          mesa.status = true;
+          mesa.total = comanda.total;
+        }else{
+          mesa.status = false;
+        }
+			})
+		);
+    res.json(mesas)
   }
   static async getMesaById(req, res) {
     const errors = validationResult(req)

@@ -28,10 +28,13 @@ router.get("/mesas", MesasController.getAllMesas);
 router.post("/mesas", mesasValidator, MesasController.postMesa);
 router.put("/mesas/:id", [idValidator, mesasValidator], MesasController.putMesa);
 router.get("/mesas/:id", idValidator, MesasController.getMesaById);
+router.get("/mesas-comandas", MesasController.getAllMesasWithComanda);
 
 // Rota para o controller de tipoItens
 
 router.get("/tipoitens", TipoItensController.getAllTipoItens);
+router.get("/tipoitens-ativos", TipoItensController.getAllTipoItensAtivos);
+router.get("/tipoitens-itens", TipoItensController.getAllTipoItensWithItens);
 router.post("/tipoitens", tipoItensValidator, TipoItensController.postTipoItens);
 router.put("/tipoitens/:id", [idValidator, tipoItensValidator], TipoItensController.putTipoItens);
 router.delete("/tipoitens/:id", idValidator, TipoItensController.deleteTipoItens);
@@ -58,7 +61,7 @@ router.get("/itens/:id", idValidator, ItensController.getItemById);
 router.get("/comandas", ComandasController.getAllComandas);
 router.put("/comandas/:id", [idValidator, updateComandasValidator], ComandasController.putComanda);
 router.get("/comandas/:id", idValidator, ComandasController.getComandaById);
-
+router.get("/comandas-abertas", ComandasController.getAllComandasAbertas);
 // Rota para o controller de pedidos
 
 router.get("/pedidos", PedidosController.getAllPedidos);
@@ -66,7 +69,7 @@ router.post("/pedidos", createPedidosValidator, PedidosController.postPedido);
 router.put("/pedidos/:id", [idValidator, updatePedidosValidator], PedidosController.putPedido);
 router.delete("/pedidos/:id", idValidator, PedidosController.deletePedido);
 router.get("/pedidos/:id", idValidator, PedidosController.getPedidoById);
-
+router.get("/pedidos-abertos", PedidosController.getAllPedidosAbertos);
 // Rota para o controller de itensPedidos
 
 router.get("/itenspedidos", ItensPedidosController.getAllItensPedidos);
@@ -75,6 +78,7 @@ router.get("/itenspedidos/:id", idValidator, ItensPedidosController.getItensPedi
 // Rota para o controller da cozinha
 
 router.get("/cozinhas", CozinhaController.getAllItensCozinha);
+router.put("/cozinhas", CozinhaController.putItensCozinha);
 router.get("/cozinhas/:id", idValidator, ItensPedidosController.getItensPedidosById);
 
 // Rota para o controller de relatórios
