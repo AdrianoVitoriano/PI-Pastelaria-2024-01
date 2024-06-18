@@ -12,7 +12,7 @@ class MesasController {
       return res.status(400).json({ errors: errors.array() })
     }
     
-    res.json(await getById(req.params, Mesas));
+    res.json(await getById(req.params, Mesas, { ativo: 1 }));
   }
   static async postMesa(req, res) {
     const errors = validationResult(req)
@@ -30,7 +30,7 @@ class MesasController {
     
     req.body.id=parseInt(req.params.id)
 
-    res.json(await updateById(req.body, Mesas));
+    res.json(await updateById(req.body, Mesas, { ativo: 1 }));
   }
   static async deleteMesa(req, res) {
     const errors = validationResult(req)
@@ -39,8 +39,8 @@ class MesasController {
     }
 
     req.body.id = parseInt(req.params.id)
-
-    res.json(await deleteById(req.body, Mesas));
+    req.body.ativo = 0;
+    res.json(await updateById(req.body, Mesas, { ativo: 1 }));
   }
 }
 

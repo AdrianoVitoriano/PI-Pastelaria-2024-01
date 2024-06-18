@@ -18,15 +18,12 @@ import CozinhaController from "./Controller/cozinha.controller.js";
 
 export const router = Router();
 
-router.get("/sayhi", (req, res) => {
-	res.send("Hi!");
-});
-
 // Rota para o controller de mesas
 
 router.get("/mesas", MesasController.getAllMesas);
 router.post("/mesas", mesasValidator, MesasController.postMesa);
 router.put("/mesas/:id", [idValidator, mesasValidator], MesasController.putMesa);
+router.delete("/mesas/:id", [idValidator], MesasController.deleteMesa);
 router.get("/mesas/:id", idValidator, MesasController.getMesaById);
 
 // Rota para o controller de tipoItens
