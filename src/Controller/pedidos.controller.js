@@ -6,6 +6,7 @@ import { getNameUsuario, validarUsuario } from "./usuarios.controller.js";
 import { insert, updateById, deleteById, getById, getAll, data, getPedidoById, converterData } from "../crud.js";
 import { inserirItens } from "./itensPedidos.controller.js";
 import { atualizarItemCozinha } from "./cozinha.controller.js";
+import { getNamesItens } from "./itens.controller.js";
 
 class PedidosController {
 	static async getAllPedidos(req, res) {
@@ -30,9 +31,22 @@ class PedidosController {
 			return res.status(400).json({ errors: errors.array() });
 		}
 		let pedido = await getPedidoById(req.params, Pedidos);
-		pedido[0].data = converterData(pedido[0].data);
-		pedido[0].nomeUsuario = await getNameUsuario(pedido[0].idUsuario);
-		pedido[0].idMesa = await getMesaComanda(pedido[0].idComanda);
+		pedido = pedido[0];
+		pedido.data = converterData(pedido.data);
+		pedido.nomeUsuario = await getNameUsuario(pedido.idUsuario);
+		pedido.idMesa = await getMesaComanda(pedido.idComanda);
+		const itens = [];
+		await Promise.all(
+			pedido.itensPedidos.map(async (item) =>
+				itens.push({
+					nome: (await getNamesItens([item.idItem]))[0].itens_nome,
+					quantidade: item.quantidade,
+					subtotal: item.subtotal,
+					cozinha: item.cozinha,
+				})
+			)
+		);
+		pedido.itensPedidos = itens;
 		res.json(pedido);
 	}
 	static async postPedido(req, res) {
