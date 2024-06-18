@@ -1,6 +1,6 @@
 import { body } from 'express-validator'
 
-export const tipoItensValidator = [
+export const createTipoItensValidator = [
     /*
     #swagger.requestBody={
       required: true,
@@ -14,4 +14,19 @@ export const tipoItensValidator = [
     }
   */
     body('nome').isString().withMessage("Nome não foi passado ou não é um texto."),
+]
+export const updateTipoItensValidator = [
+  /*
+  #swagger.requestBody={
+    required: true,
+    content:{
+    "application/json":{
+      schema:{
+      $ref: "#/definitions/AddOrUpdateTipoItens"
+      },
+    },
+    },
+  }
+  */
+  body('nome').optional().isString().withMessage("Nome não é um texto."),
 ]

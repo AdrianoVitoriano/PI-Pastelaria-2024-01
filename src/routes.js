@@ -4,7 +4,7 @@ import { updateItensValidator, createItensValidator } from "./validator/itens.va
 import { idValidator } from "./validator/idValidator.js";
 import { mesasValidator } from "./validator/mesas.validator.js";
 import { updatePedidosValidator, createPedidosValidator } from "./validator/pedidos.validator.js";
-import { tipoItensValidator } from "./validator/tipoItens.validator.js";
+import { createTipoItensValidator, tipoItensValidator, updateTipoItensValidator } from "./validator/tipoItens.validator.js";
 import { updateUsuariosValidator, createUsuariosValidator } from "./validator/usuarios.validator.js";
 import RelatoriosController from "./Controller/relatorio.controller.js";
 import UsuarioController from "./Controller/usuarios.controller.js";
@@ -32,8 +32,8 @@ router.get("/mesas-comandas", MesasController.getAllMesasWithComanda);
 router.get("/tipoitens", TipoItensController.getAllTipoItens);
 router.get("/tipoitens-ativos", TipoItensController.getAllTipoItensAtivos);
 router.get("/tipoitens-itens", TipoItensController.getAllTipoItensWithItens);
-router.post("/tipoitens", tipoItensValidator, TipoItensController.postTipoItens);
-router.put("/tipoitens/:id", [idValidator, tipoItensValidator], TipoItensController.putTipoItens);
+router.post("/tipoitens", createTipoItensValidator, TipoItensController.postTipoItens);
+router.put("/tipoitens/:id", [idValidator, updateTipoItensValidator], TipoItensController.putTipoItens);
 router.delete("/tipoitens/:id", idValidator, TipoItensController.deleteTipoItens);
 router.get("/tipoitens/:id", idValidator, TipoItensController.getTipoItensById);
 
