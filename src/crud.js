@@ -89,6 +89,7 @@ export async function getPedidoById(req, table, whereOptions) {
 			.getRepository(table.options.name)
 			.createQueryBuilder()
 			.where(whereOptions ? { id: req.id, ativo: whereOptions.ativo } : { id: req.id })
+			.leftJoinAndSelect("pedidos.itensPedidos", "itensPedidos")
 			.getMany()
 			.catch((err) => {
 				return err;
