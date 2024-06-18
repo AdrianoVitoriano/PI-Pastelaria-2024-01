@@ -1,5 +1,5 @@
 import { Usuarios } from "../Model/usuarios.model.js";
-import { insert, updateById, deleteById, getById, getAll } from "../crud.js";
+import { insert, updateById, getById, getAll, getSomeById } from "../crud.js";
 import { validationResult } from 'express-validator';
 
 class UsuarioController {
@@ -47,5 +47,9 @@ class UsuarioController {
 export async function validarUsuario(id){
 return (await getById({id,}, Usuarios)).result  ?true:false
 }
+export async function getNameUsuario(id){
+  return (await getById({id}, Usuarios))[0].nome
+  } 
+
 
 export default UsuarioController;
