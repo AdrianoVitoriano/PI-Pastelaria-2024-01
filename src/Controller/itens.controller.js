@@ -30,7 +30,7 @@ class ItensController {
 
 		req.body.id = parseInt(req.params.id);
 
-		res.json(await updateById(req.body, Itens, { ativo: 1 }));
+		res.json(await updateById(req.body, Itens));
 	}
 	static async deleteItem(req, res) {
 		const errors = validationResult(req);
